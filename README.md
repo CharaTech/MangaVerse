@@ -19,6 +19,7 @@
 - [Smart Contracts](#smart-contracts)
 - [Development Workflow](#development-workflow)
 - [Sponsorship](#sponsorship)
+- [Documentation](#documentation)
 - [Contact](#contact)
 
 ---
@@ -716,6 +717,18 @@ Hotfix: hotfix/{issue-name} (emergency fixes)
 - Futuristic manga aesthetic
 - Blend of traditional manga art + cyberpunk elements
 - Neon glows, clean lines, high contrast
+
+---
+
+## Documentation
+
+Detailed project documentation lives in the [`docs/`](docs/) directory:
+
+- [Project Briefing](docs/MangaVerse_Project_Briefing.md) — executive overview, vision, features, and business model
+- [Technical Blueprint](docs/MangaVerse_Technical_Blueprint.md) — system architecture, AI/blockchain integration, API specs, and data models
+- [Tech Stack & Roadmap](docs/MangaVerse_TechStack_Roadmap.md) — full technology breakdown and phased development plan
+- [Sponsor Request](docs/MangaVerse_Sponsor_Request.md) — sponsorship tiers, use of funds, and branding guidelines
+- [3D Logo — ComfyUI Guide](docs/MangaVerse_3D_Logo_ComfyUI_Guide.md) — prompts and workflow for generating the MangaVerse 3D logo
 
 ---
 

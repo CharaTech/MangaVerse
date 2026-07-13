@@ -190,7 +190,7 @@
 - **Project Name:** MangaVerse
 - **Tagline:** "Where Manga Meets Tomorrow"
 - **Development Status:** Active Contest Build
-- **Documentation:** [Will be updated]
+- **Documentation:** See the [`docs/`](./) directory — Technical Blueprint, Tech Stack & Roadmap, and Sponsor Request
 
 ---
 
