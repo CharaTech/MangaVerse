@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+# Detect if pre-commit hook was bypassed via --no-verify
+# post-commit ALWAYS runs, even with --no-verify
+GIT_DIR="$(git rev-parse --git-dir)"
+
+# Skip check during rebase (rebase commits skip pre-commit legitimately)
+if [ -d "$GIT_DIR/rebase-merge" ] || [ -d "$GIT_DIR/rebase-apply" ]; then
+  exit 0
+fi
+
+EVIDENCE_FILE="$GIT_DIR/.pre-commit-evidence"
+VIOLATION_LOG="$GIT_DIR/no-verify-violations.log"
+
+if [ -f "$EVIDENCE_FILE" ]; then
+  rm -f "$EVIDENCE_FILE"
+  exit 0
+fi
+
+CURRENT_HASH=$(git rev-parse HEAD)
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+echo "$TIMESTAMP  user=$(git config user.email 2>/dev/null || echo unknown)  commit=$CURRENT_HASH  bypass=--no-verify" >> "$VIOLATION_LOG"
+echo ""
+echo "🛡️  --no-verify bypass detected! The pre-commit hook was skipped."
+echo "   Run 'pnpm lint' to check code quality before pushing."
+echo ""

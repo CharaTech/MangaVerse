@@ -20,6 +20,7 @@
 - [Development Workflow](#development-workflow)
 - [Sponsorship](#sponsorship)
 - [Documentation](#documentation)
+- [Development](#development)
 - [Contact](#contact)
 
 ---
@@ -39,18 +40,21 @@ MangaVerse is a revolutionary Web3-powered manga creation and consumption platfo
 MangaVerse represents a paradigm shift in digital manga creation and consumption. Sitting at the intersection of three massive growth markets—digital manga creation, AI-powered creative tools, and Web3/NFT ownership economy—no platform currently serves all three combined.
 
 ### For Artists
+
 - AI-powered character creation through natural language prompts
 - Reusable asset library with centralized character database
 - Cloud collaboration tools
 - Monetization through blockchain (NFTs, royalties)
 
 ### For Readers
+
 - Custom manga reader with support for multiple reading modes (R2L, L2R, vertical scroll)
 - Interactive manga reading with one-click page animations
 - Sound effects and music overlay
 - Immersive storytelling experiences
 
 ### For the Ecosystem
+
 - Decentralized ownership through blockchain
 - Creator royalties via smart contracts
 - Community governance through DAO
@@ -62,24 +66,28 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 ### Manga Studio (Artist Tools)
 
 #### AI Character Generation
+
 - Natural language prompts to generate manga characters
 - Style customization (shonen, shoujo, seinen, etc.)
 - Pose and expression variations
 - Character consistency engine using LoRA/Checkpoint fine-tuning
 
 #### Scene Builder
+
 - Drag-and-drop scene composition
 - Pre-built manga templates and layouts
 - AI-assisted background generation
 - Real-time collaboration tools
 
 #### Character Library System
+
 - Centralized character database per artist
 - Reusable character assets across projects
 - Character relationship mapping
 - Animation pose sheets generation
 
 #### Custom File Format (.MVX)
+
 - Proprietary manga extension for MangaVerse
 - Includes layers, vectors, AI metadata, animation data
 - Blockchain-verified authorship
@@ -88,12 +96,14 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 ### Manga Reader (Reader Experience)
 
 #### Custom Reader Application
+
 - Dedicated .MVX file support
 - Variable reading modes (R2L, L2R, vertical scroll)
 - Page-by-page or continuous scroll view
 - Offline reading capability
 
 #### One-Click Animation System
+
 - **"Animate This" Button** on any page
 - User choice: Current page only OR entire scene
 - LTX Video Model integration for smooth animations
@@ -101,6 +111,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - Duration: 3-10 seconds per animation
 
 #### Interactive Elements
+
 - Clickable hotspots for character info
 - Animated panel transitions
 - Sound-reactive panels
@@ -109,6 +120,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 ### Blockchain Integration
 
 #### Web3 Features
+
 - **Creator Credentials:** NFT-based artist verification
 - **Content Provenance:** Immutable authorship records
 - **Token Gating:** Premium content access control
@@ -116,6 +128,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - **DAO Governance:** Community voting for platform decisions
 
 #### $MANGA Token
+
 - Platform utility token
 - Staking for AI generation credits
 - Governance voting weight
@@ -125,14 +138,15 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 
 ## Target Audience
 
-| Segment | Description | Size Estimate |
-|---------|-------------|---------------|
-| **Manga Artists** | Independent creators, studio artists | 500K+ globally |
-| **Manga Readers** | Otaku community, digital manga consumers | 50M+ |
-| **Web3 Users** | NFT collectors, crypto manga enthusiasts | 2M+ |
-| **AI Enthusiasts** | Tech-forward creative professionals | 10M+ |
+| Segment            | Description                              | Size Estimate  |
+| ------------------ | ---------------------------------------- | -------------- |
+| **Manga Artists**  | Independent creators, studio artists     | 500K+ globally |
+| **Manga Readers**  | Otaku community, digital manga consumers | 50M+           |
+| **Web3 Users**     | NFT collectors, crypto manga enthusiasts | 2M+            |
+| **AI Enthusiasts** | Tech-forward creative professionals      | 10M+           |
 
 ### Demographics
+
 - **Age:** 18-35 (primary), 35-55 (secondary)
 - **Gender:** 60% Male, 40% Female
 - **Geography:** Japan (30%), USA (25%), Europe (20%), Other (25%)
@@ -162,6 +176,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
    - License MangaVerse tech to publishers
 
 ### Market Size
+
 - **Global Manga Market:** $31.2B (2025) → $45B projected (2028)
 - **Digital Manga Share:** 65% and growing
 - **Web3 NFT Market:** $20B+ cumulative volume
@@ -172,6 +187,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 ## Development Roadmap
 
 ### Phase 1: Foundation (Week 1-4)
+
 - Repository setup (Turborepo)
 - CI/CD pipeline
 - Design system
@@ -183,6 +199,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - Basic manga upload and viewing
 
 ### Phase 2: AI Integration (Week 5-8)
+
 - ComfyUI integration with SDXL
 - Character creation flow
 - LoRA training pipeline
@@ -193,6 +210,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - Full Studio interface
 
 ### Phase 3: Animation Engine (Week 9-12)
+
 - LTX Video Model deployment
 - Image-to-video pipeline
 - One-click animation button
@@ -201,6 +219,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - Animation gallery and sharing
 
 ### Phase 4: Blockchain (Week 13-16)
+
 - RainbowKit/wagmi wallet integration
 - Polygon zkEVM integration
 - MangaNFT contract (ERC-721)
@@ -210,6 +229,7 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 - Basic DAO governance
 
 ### Phase 5: Scale & Polish (Week 17-20)
+
 - CDN optimization
 - Mobile apps (iOS/Android via React Native)
 - Real-time collaboration (Socket.io)
@@ -307,93 +327,93 @@ MangaVerse represents a paradigm shift in digital manga creation and consumption
 
 ### Frontend Stack
 
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Framework | React | 18.x | UI Library |
-| Build Tool | Vite | 5.x | Fast builds, HMR |
-| State Management | Zustand | 4.x | Lightweight state |
-| Styling | TailwindCSS | 3.x | Utility-first CSS |
-| Animation | Framer Motion | 11.x | UI animations |
-| 3D Elements | Three.js | 0.165+ | WebGL rendering |
-| Canvas | Fabric.js | 6.x | Manga editing canvas |
-| PDF/Page Render | PDF.js | 4.x | Manga page rendering |
-| Icons | Heroicons/Lucide | Latest | SVG icon set |
+| Component        | Technology       | Version | Purpose              |
+| ---------------- | ---------------- | ------- | -------------------- |
+| Framework        | React            | 18.x    | UI Library           |
+| Build Tool       | Vite             | 5.x     | Fast builds, HMR     |
+| State Management | Zustand          | 4.x     | Lightweight state    |
+| Styling          | TailwindCSS      | 3.x     | Utility-first CSS    |
+| Animation        | Framer Motion    | 11.x    | UI animations        |
+| 3D Elements      | Three.js         | 0.165+  | WebGL rendering      |
+| Canvas           | Fabric.js        | 6.x     | Manga editing canvas |
+| PDF/Page Render  | PDF.js           | 4.x     | Manga page rendering |
+| Icons            | Heroicons/Lucide | Latest  | SVG icon set         |
 
 ### Desktop Application
 
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Runtime | Tauri | 2.x | Native web app wrapper |
-| Fallback | Electron | 28.x | Cross-platform desktop |
-| Native Features | Rust | 1.75+ | High-performance modules |
+| Component       | Technology | Version | Purpose                  |
+| --------------- | ---------- | ------- | ------------------------ |
+| Runtime         | Tauri      | 2.x     | Native web app wrapper   |
+| Fallback        | Electron   | 28.x    | Cross-platform desktop   |
+| Native Features | Rust       | 1.75+   | High-performance modules |
 
 ### Mobile Application
 
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Framework | React Native | 0.75+ | Cross-platform mobile |
-| Native Modules | Kotlin/Swift | Latest | Platform-specific features |
+| Component      | Technology   | Version | Purpose                    |
+| -------------- | ------------ | ------- | -------------------------- |
+| Framework      | React Native | 0.75+   | Cross-platform mobile      |
+| Native Modules | Kotlin/Swift | Latest  | Platform-specific features |
 
 ### Backend Stack
 
-| Component | Technology | Version | Purpose |
-|-----------|------------|---------|---------|
-| Runtime | Node.js | 20.x LTS | JavaScript runtime |
-| Framework | Express.js | 4.x | REST API framework |
-| GraphQL | Apollo Server | 4.x | GraphQL API |
-| WebSocket | Socket.io | 4.x | Real-time updates |
-| Validation | Zod | 3.x | Runtime type checking |
-| Rate Limiting | Upstash Redis | Latest | API rate limiting |
+| Component     | Technology    | Version  | Purpose               |
+| ------------- | ------------- | -------- | --------------------- |
+| Runtime       | Node.js       | 20.x LTS | JavaScript runtime    |
+| Framework     | Express.js    | 4.x      | REST API framework    |
+| GraphQL       | Apollo Server | 4.x      | GraphQL API           |
+| WebSocket     | Socket.io     | 4.x      | Real-time updates     |
+| Validation    | Zod           | 3.x      | Runtime type checking |
+| Rate Limiting | Upstash Redis | Latest   | API rate limiting     |
 
 ### AI Integration
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Image Generation | ComfyUI + SDXL | Character/scene generation |
-| Video Generation | LTX Video Model | Page animations |
-| Text-to-Speech | ElevenLabs / Coqui | Sound effects, dialogue |
-| Image Processing | Sharp + Pillow | Image manipulation |
-| LoRA Training | Dreambooth / LoRA | Character consistency |
+| Component        | Technology         | Purpose                    |
+| ---------------- | ------------------ | -------------------------- |
+| Image Generation | ComfyUI + SDXL     | Character/scene generation |
+| Video Generation | LTX Video Model    | Page animations            |
+| Text-to-Speech   | ElevenLabs / Coqui | Sound effects, dialogue    |
+| Image Processing | Sharp + Pillow     | Image manipulation         |
+| LoRA Training    | Dreambooth / LoRA  | Character consistency      |
 
 ### Blockchain Stack
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Layer 1 | Polygon zkEVM | Low-gas, EVM-compatible |
-| Layer 2 | Arbitrum Orbit | Alternative L2 option |
-| Wallet | RainbowKit / wagmi | Web3 wallet connection |
-| NFT Standard | ERC-721 + ERC-1155 | Digital ownership |
-| Token | ERC-20 ($MANGA) | Utility token |
-| Marketplace | Seaport Protocol | NFT trading |
-| Oracles | Chainlink | Off-chain data |
-| Storage | IPFS + Filecoin | Decentralized storage |
-| DID | ENS + Lens Protocol | Decentralized identity |
+| Component    | Technology          | Purpose                 |
+| ------------ | ------------------- | ----------------------- |
+| Layer 1      | Polygon zkEVM       | Low-gas, EVM-compatible |
+| Layer 2      | Arbitrum Orbit      | Alternative L2 option   |
+| Wallet       | RainbowKit / wagmi  | Web3 wallet connection  |
+| NFT Standard | ERC-721 + ERC-1155  | Digital ownership       |
+| Token        | ERC-20 ($MANGA)     | Utility token           |
+| Marketplace  | Seaport Protocol    | NFT trading             |
+| Oracles      | Chainlink           | Off-chain data          |
+| Storage      | IPFS + Filecoin     | Decentralized storage   |
+| DID          | ENS + Lens Protocol | Decentralized identity  |
 
 ### Database & Storage
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Primary DB | PostgreSQL 16 | User data, manga metadata |
-| Document DB | MongoDB 7 | Flexible schema, logs |
-| Cache | Redis 7 | Session, queue, cache |
-| Graph DB | Neo4j | Character relationships |
-| Search | Meilisearch | Full-text search |
-| Object Storage | CloudFlare R2 | Media, manga files |
-| CDN | CloudFlare | Global edge delivery |
+| Component      | Technology    | Purpose                   |
+| -------------- | ------------- | ------------------------- |
+| Primary DB     | PostgreSQL 16 | User data, manga metadata |
+| Document DB    | MongoDB 7     | Flexible schema, logs     |
+| Cache          | Redis 7       | Session, queue, cache     |
+| Graph DB       | Neo4j         | Character relationships   |
+| Search         | Meilisearch   | Full-text search          |
+| Object Storage | CloudFlare R2 | Media, manga files        |
+| CDN            | CloudFlare    | Global edge delivery      |
 
 ### Infrastructure
 
-| Component | Technology | Purpose |
-|-----------|------------|---------|
-| Container | Docker | Application containers |
-| Orchestration | Kubernetes | Container management |
-| Cloud Provider | AWS + CloudFlare | Compute + Edge |
-| GPU Compute | RunPod / Vast.ai | AI model inference |
-| CI/CD | GitHub Actions | Automated pipelines |
-| Monitoring | Prometheus + Grafana | System metrics |
-| Logging | Loki + Grafana | Log aggregation |
-| Error Tracking | Sentry | Error monitoring |
-| APM | New Relic | Application performance |
+| Component      | Technology           | Purpose                 |
+| -------------- | -------------------- | ----------------------- |
+| Container      | Docker               | Application containers  |
+| Orchestration  | Kubernetes           | Container management    |
+| Cloud Provider | AWS + CloudFlare     | Compute + Edge          |
+| GPU Compute    | RunPod / Vast.ai     | AI model inference      |
+| CI/CD          | GitHub Actions       | Automated pipelines     |
+| Monitoring     | Prometheus + Grafana | System metrics          |
+| Logging        | Loki + Grafana       | Log aggregation         |
+| Error Tracking | Sentry               | Error monitoring        |
+| APM            | New Relic            | Application performance |
 
 ---
 
@@ -427,6 +447,7 @@ MVX_Container:
 ### DRM & Watermarking
 
 The .MVX format includes:
+
 - **Visible Watermark:** Semi-transparent, diagonal-tile with reader username and timestamp
 - **Invisible Watermark:** Steganographic embedding with owner ID, content ID, and copy number
 - **Forensic Watermark:** Fingerprint fragments (reader-hash, time-hash, device-hash)
@@ -492,6 +513,7 @@ The .MVX format includes:
 ### REST API Endpoints
 
 #### Authentication
+
 ```
 POST   /api/v1/auth/register         - User registration
 POST   /api/v1/auth/login           - User login
@@ -502,6 +524,7 @@ POST   /api/v1/auth/wallet/verify  - Verify wallet signature
 ```
 
 #### Manga Operations
+
 ```
 GET    /api/v1/manga                - List manga (paginated)
 GET    /api/v1/manga/:id            - Get manga details
@@ -514,6 +537,7 @@ GET    /api/v1/manga/:id/export    - Export as .MVX
 ```
 
 #### Character Library
+
 ```
 GET    /api/v1/characters           - List character library
 GET    /api/v1/characters/:id       - Get character details
@@ -525,6 +549,7 @@ GET    /api/v1/characters/:id/lora - Download trained LoRA
 ```
 
 #### Animation Generation
+
 ```
 POST   /api/v1/animate/page         - Animate single page
 POST   /api/v1/animate/scene        - Animate entire scene
@@ -534,6 +559,7 @@ POST   /api/v1/animate/sound        - Generate sound effects
 ```
 
 #### NFT Operations
+
 ```
 POST   /api/v1/nft/mint             - Mint manga as NFT
 GET    /api/v1/nft/:tokenId         - Get NFT metadata
@@ -543,24 +569,25 @@ GET    /api/v1/nft/collection       - Get user's collection
 ```
 
 ### WebSocket Events
+
 ```javascript
 const WS_EVENTS = {
-    // Animation Progress
-    'animation:progress': (jobId, progress, eta) => {},
-    'animation:complete': (jobId, videoUrl) => {},
-    'animation:error': (jobId, error) => {},
-    
-    // Collaboration
-    'collab:user:joined': (userId, projectId) => {},
-    'collab:user:left': (userId, projectId) => {},
-    'collab:change': (projectId, change) => {},
-    
-    // Notifications
-    'notification:new': (notification) => {},
-    
-    // Blockchain Events
-    'nft:minted': (tokenId, txHash) => {},
-    'nft:sold': (tokenId, newOwner) => {}
+  // Animation Progress
+  'animation:progress': (jobId, progress, eta) => {},
+  'animation:complete': (jobId, videoUrl) => {},
+  'animation:error': (jobId, error) => {},
+
+  // Collaboration
+  'collab:user:joined': (userId, projectId) => {},
+  'collab:user:left': (userId, projectId) => {},
+  'collab:change': (projectId, change) => {},
+
+  // Notifications
+  'notification:new': (notification) => {},
+
+  // Blockchain Events
+  'nft:minted': (tokenId, txHash) => {},
+  'nft:sold': (tokenId, newOwner) => {},
 };
 ```
 
@@ -622,6 +649,7 @@ const WS_EVENTS = {
 ## Development Workflow
 
 ### Git Strategy
+
 ```
 Main Branch: main (production-ready)
             ↓
@@ -650,29 +678,30 @@ Hotfix: hotfix/{issue-name} (emergency fixes)
 
 ### Sponsorship Tiers
 
-| Tier | Amount | Benefits |
-|------|--------|-----------|
-| 🥉 Bronze | $10,000 | Logo on footer, social media (1x/month), early beta access |
-| 🥈 Silver | $25,000 | Logo on landing page, video testimonial, 2x/month social, 1 free Studio license |
-| 🥇 Gold | $50,000 | Above-fold logo, dedicated feature, 4x/month social, 3 free Studio licenses, advisory seat |
-| 💎 Platinum | $100,000+ | Hero sponsorship, naming rights, 10 free Studio licenses, keynote slot |
-| 🏆 Title | $250,000+ | "Powered by [SPONSOR]", annual contest, board observer, 5% revenue share |
+| Tier        | Amount    | Benefits                                                                                   |
+| ----------- | --------- | ------------------------------------------------------------------------------------------ |
+| 🥉 Bronze   | $10,000   | Logo on footer, social media (1x/month), early beta access                                 |
+| 🥈 Silver   | $25,000   | Logo on landing page, video testimonial, 2x/month social, 1 free Studio license            |
+| 🥇 Gold     | $50,000   | Above-fold logo, dedicated feature, 4x/month social, 3 free Studio licenses, advisory seat |
+| 💎 Platinum | $100,000+ | Hero sponsorship, naming rights, 10 free Studio licenses, keynote slot                     |
+| 🏆 Title    | $250,000+ | "Powered by [SPONSOR]", annual contest, board observer, 5% revenue share                   |
 
 ### Sponsorship Use of Funds
 
-| Category | Allocation |
-|----------|------------|
-| **AI Infrastructure** | 35% |
-| **Development** | 30% |
-| **Legal & Compliance** | 10% |
-| **Marketing** | 15% |
-| **Operations** | 10% |
+| Category               | Allocation |
+| ---------------------- | ---------- |
+| **AI Infrastructure**  | 35%        |
+| **Development**        | 30%        |
+| **Legal & Compliance** | 10%        |
+| **Marketing**          | 15%        |
+| **Operations**         | 10%        |
 
 ---
 
 ## Success Metrics
 
 ### Month 6 Targets
+
 - **Artists:** 1,000 registered creators
 - **Readers:** 50,000 registered users
 - **Manga Titles:** 500+ .MVX works
@@ -680,6 +709,7 @@ Hotfix: hotfix/{issue-name} (emergency fixes)
 - **NFT Transactions:** 1,000+
 
 ### Month 12 Targets
+
 - **Artists:** 10,000+ creators
 - **Readers:** 500,000+ monthly active users
 - **$MANGA Holders:** 25,000+
@@ -689,19 +719,20 @@ Hotfix: hotfix/{issue-name} (emergency fixes)
 
 ## Risk Mitigation
 
-| Risk | Mitigation Strategy |
-|------|---------------------|
+| Risk                  | Mitigation Strategy                              |
+| --------------------- | ------------------------------------------------ |
 | AI generation quality | Human-in-the-loop editing, artist feedback loops |
-| Copyright issues | Content moderation AI, DMCA pipeline |
-| Blockchain complexity | Abstraction layer for non-crypto users |
-| Scalability | Layer 2 solutions, IPFS for storage |
-| Regulatory changes | Legal counsel, compliant architecture |
+| Copyright issues      | Content moderation AI, DMCA pipeline             |
+| Blockchain complexity | Abstraction layer for non-crypto users           |
+| Scalability           | Layer 2 solutions, IPFS for storage              |
+| Regulatory changes    | Legal counsel, compliant architecture            |
 
 ---
 
 ## Branding
 
 ### Color Palette
+
 - **Primary:** `#6C5CE7` (Electric Purple)
 - **Secondary:** `#00CEC9` (Cyan Accent)
 - **Background:** `#0D0D1A` (Deep Space)
@@ -709,11 +740,13 @@ Hotfix: hotfix/{issue-name} (emergency fixes)
 - **Gradient:** Purple → Cyan diagonal
 
 ### Typography
+
 - **Headlines:** Orbitron (futuristic, tech-forward)
 - **Body:** Inter (clean, readable)
 - **Japanese:** Noto Sans JP
 
 ### Visual Identity
+
 - Futuristic manga aesthetic
 - Blend of traditional manga art + cyberpunk elements
 - Neon glows, clean lines, high contrast
@@ -732,6 +765,57 @@ Detailed project documentation lives in the [`docs/`](docs/) directory:
 
 ---
 
+## Development
+
+MangaVerse is a single TypeScript project (not a monorepo) that emulates the AO
+Holdings engineering standards (`ao-frontend-base-template`,
+`synergy-erp-api-base-template`): Husky git hooks, Conventional Commits, ESLint
+with strict naming/import-order/JSDoc rules, Prettier, and a pre-push quality
+gate.
+
+### Project Structure
+
+```
+src/
+  lib/         Utilities (e.g. src/lib/utils.ts)
+  services/    API/client services (e.g. src/services/manga.ts)
+  api/         Express server (src/api/server.ts)
+  web/         React client (src/web/App.tsx, src/web/main.tsx)
+  blockchain/  Smart-contract layer placeholder
+scripts/       Quality-gate & standards check scripts (Husky hooks call these)
+docs/          Project documentation
+```
+
+### Commands
+
+```bash
+pnpm install              # Install deps + initialize Husky hooks
+pnpm dev                  # Start the Vite web client
+pnpm dev:api              # Start the Express API (tsx watch)
+pnpm build                # Production web build (vite build)
+pnpm lint                 # ESLint, max-warnings 0
+pnpm check-types          # Type-check
+pnpm check-single-letter-vars
+pnpm check-import-order
+pnpm check-comments
+pnpm check-test-stubs     # Per-symbol test coverage
+pnpm run-quality-gate     # Full pre-push gate
+pnpm test / test:ci       # Tests with coverage
+pnpm validate             # lint + all checks + types + tests
+pnpm commands             # List all commands
+```
+
+### Standards Enforced
+
+- **No single-letter / meaningless names** (`id-length` + banned names).
+- **Import order** (`import/order`: grouped, alphabetized, blank lines between groups).
+- **JSDoc** on every exported symbol + inline comments before non-trivial calls.
+- **Test stubs**: every domain folder under `lib/`, `services/`, etc. must have a
+  test and every exported symbol must be referenced in a `describe`/`it`/`test`.
+- **No `--no-verify`**: bypassing hooks is detected and rejected.
+
+---
+
 ## Contact
 
 - **Project Name:** MangaVerse
@@ -743,5 +827,5 @@ Detailed project documentation lives in the [`docs/`](docs/) directory:
 
 ---
 
-*Document Version: 1.0*  
-*Last Updated: April 17, 2026*
+_Document Version: 1.0_  
+_Last Updated: April 17, 2026_

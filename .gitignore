@@ -78,4 +78,6 @@ playwright-report/
 test-results/
 
 # ===================== Temp / scratch =====================
+tmp/*
+!tmp/PROGRESS.md
 *.tmp

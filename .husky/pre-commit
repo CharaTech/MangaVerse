@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# Verify pnpm is installed before running any pnpm commands
+node "$(dirname -- "$0")/../scripts/check-pnpm.mjs"
+
+# Detect --no-verify bypass patterns
+node "$(dirname -- "$0")/../scripts/detect-no-verify.mjs"
+
+# Auto-format staged files with Prettier and re-stage them
+node "$(dirname -- "$0")/../scripts/pre-commit-format.mjs"
+
+echo "🔍 Running lint-staged (lint check + auto-fix)..."
+pnpm exec lint-staged
+
+# Validate commit message format early (catches type/scope issues before commit-msg)
+COMMIT_MSG_FILE=$(git rev-parse --git-path COMMIT_EDITMSG)
+echo "📝 Validating commit message..."
+pnpm exec commitlint --edit "$COMMIT_MSG_FILE"
+
+# Write evidence that pre-commit ran (checked by post-commit hook)
+: > "$(git rev-parse --git-dir)/.pre-commit-evidence"

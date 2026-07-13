@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Verify pnpm is installed before running any pnpm commands
+node "$(dirname -- "$0")/../scripts/check-pnpm.mjs"
+
+echo "📝 Validating commit message..."
+pnpm exec commitlint --edit "$1"

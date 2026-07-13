@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+# Verify pnpm is installed before running any pnpm commands
+node "$(dirname -- "$0")/../scripts/check-pnpm.mjs"
+
+# Detect --no-verify bypass patterns
+node "$(dirname -- "$0")/../scripts/detect-no-verify.mjs"
+
+echo "🚀 Running pre-push quality checks..."
+
+# Read the refs being pushed from stdin
+read local_ref local_sha remote_ref remote_sha || true
+
+# Skip if this is a branch deletion
+if [ "$local_sha" = "0000000000000000000000000000000000000000" ]; then
+  exit 0
+fi
+
+pnpm run-quality-gate
+
+# Validate commit messages (catches bypassed --no-verify on local commits)
+if [ "$remote_sha" = "0000000000000000000000000000000000000000" ]; then
+  # New branch: validate all commits in the branch history
+  BASE=$(git rev-list --max-parents=0 HEAD 2>/dev/null | head -n1 || true)
+else
+  BASE=$remote_sha
+fi
+
+if [ -n "$BASE" ]; then
+  pnpm exec commitlint --from "$BASE" --to "$local_sha"
+fi
