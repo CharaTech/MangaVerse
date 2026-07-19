@@ -452,19 +452,14 @@ body {
   50% { opacity: 0.82; }
 }
 
-/* Section divider with manga "tono" dots */
-.tono-divider {
-  display: flex;
-  gap: 6px;
-  justify-content: center;
-  margin: 2.5rem 0;
-  opacity: 0.5;
-}
-.tono-divider span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
+/* Section divider — crimson gradient line */
+.section-divider {
+  width: 48px;
+  height: 4px;
+  margin: 2rem auto;
+  background: linear-gradient(90deg, var(--color-primary), #ff0057, var(--color-secondary));
+  border-radius: 2px;
+  opacity: 0.6;
 }
 
 /* Subtle camera-pan wrapper for hero panel */

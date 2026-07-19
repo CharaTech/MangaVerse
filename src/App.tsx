@@ -439,7 +439,7 @@ function Journeys() {
   return (
     <section className="relative py-12 px-4">
       <div className="max-w-5xl mx-auto">
-        <SectionTitle title="Two sides of the Verse" subtitle="One platform for creators and fans" />
+        <SectionTitle title="Two sides of the Verse" subtitle="One platform for creators and fans" showDivider={false} />
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           {items.map((it, i) => (
             <motion.div
@@ -601,7 +601,7 @@ function SampleManga() {
 /* ------------------------------------------------------------------ */
 /* Section header                                                     */
 /* ------------------------------------------------------------------ */
-function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) {
+function SectionTitle({ title, subtitle, showDivider = true }: { title: string; subtitle: string; showDivider?: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -611,7 +611,7 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) 
     >
       <h2 className="text-4xl md:text-5xl font-heading mb-3 heading-crimson">{title}</h2>
       <p className="text-gray-400 max-w-xl mx-auto">{subtitle}</p>
-      <div className="tono-divider"><span /><span /><span /></div>
+      {showDivider && <div className="section-divider" />}
     </motion.div>
   )
 }
