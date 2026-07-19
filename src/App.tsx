@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Sparkles } from '@react-three/drei'
@@ -24,7 +24,6 @@ import cyberRonin from './assets/cyber-ronin.png'
 import sakuraWars from './assets/sakura-wars.png'
 import voidEater from './assets/void-eater.png'
 import salarymanX from './assets/salaryman-x.png'
-import audition from './assets/audition.png'
 import './index.css'
 
 /* ------------------------------------------------------------------ */
@@ -366,14 +365,6 @@ function SampleManga() {
       tags: ['Isekai', 'Comedy'],
       color: '#3498DB',
     },
-    {
-      image: audition,
-      title: 'Audition',
-      style: 'Josei',
-      description: 'Aspiring idols navigate rivalry and the spotlight.',
-      tags: ['Drama', 'Music'],
-      color: '#FF69B4',
-    },
   ]
 
   return (
@@ -455,12 +446,14 @@ function Footer() {
   return (
     <footer className="relative py-12 px-4 border-t border-white/10">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="text-center md:text-left">
-          <img src={logoUrl} alt="MangaVerse" className="w-8 h-8 rounded-lg mb-2 logo-glow" />
-          <p className="font-heading text-lg">
-            Manga<span className="text-brand-gradient">Verse</span>
-          </p>
-          <p className="text-gray-500 text-sm">Where Manga Comes Alive</p>
+        <div className="flex items-center gap-3">
+          <img src={logoUrl} alt="MangaVerse logo" className="w-10 h-10 rounded-lg logo-glow" />
+          <div>
+            <p className="font-heading text-lg">
+              Manga<span className="text-brand-gradient">Verse</span>
+            </p>
+            <p className="text-gray-500 text-sm">Where Manga Comes Alive</p>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">
