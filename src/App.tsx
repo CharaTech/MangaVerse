@@ -254,7 +254,7 @@ function Journeys() {
   ]
 
   return (
-    <section className="relative py-20 px-4">
+    <section className="relative py-12 px-4">
       <div className="max-w-5xl mx-auto">
         <SectionTitle title="Two sides of the Verse" subtitle="One platform for creators and fans" />
         <div className="grid md:grid-cols-2 gap-6 mt-12">
