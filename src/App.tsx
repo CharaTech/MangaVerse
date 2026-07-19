@@ -237,7 +237,7 @@ function Hero() {
               type="submit"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-secondary to-cyan-500 font-semibold flex items-center justify-center gap-2 electric-effect ripple shadow-[0_0_20px_rgba(0,206,201,0.5)]"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-secondary to-cyan-500 font-semibold text-white flex items-center justify-center gap-2 electric-effect ripple shadow-[0_0_20px_rgba(0,206,201,0.5)]"
             >
               Join Auditions <ArrowRight size={18} />
             </motion.button>
@@ -472,6 +472,48 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) 
 }
 
 /* ------------------------------------------------------------------ */
+/* Built with — horizontally scrollable tech stack                    */
+/* ------------------------------------------------------------------ */
+function BuiltWith() {
+  const stack = [
+    { name: 'React', desc: 'Component-based UI powering the interactive landing page.' },
+    { name: 'TypeScript', desc: 'Type-safe codebase from UI down to data models.' },
+    { name: 'Vite', desc: 'Lightning-fast dev server and production bundler.' },
+    { name: 'Tailwind CSS', desc: 'Utility-first styling with a custom MangaVerse theme.' },
+    { name: 'Framer Motion', desc: 'Fluid animations, parallax, and scroll reveals.' },
+    { name: 'Three.js', desc: 'WebGL 3D ambient background via react-three-fiber.' },
+    { name: 'Zustand', desc: 'Minimal state store for the waitlist flow.' },
+    { name: 'Lucide', desc: 'Clean, consistent icon set across the page.' },
+    { name: 'Surge', desc: 'Zero-config static hosting for the coming-soon launch.' },
+  ]
+
+  return (
+    <section className="relative py-16 px-4">
+      <div className="max-w-6xl mx-auto">
+        <SectionTitle title="Built with" subtitle="The stack bringing MangaVerse to life" />
+        <div className="mt-10 flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory hide-scrollbar">
+          {stack.map((t, i) => (
+            <motion.div
+              key={i}
+              className="journey-card snap-start shrink-0 w-64 p-5"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ y: -5 }}
+            >
+              <h3 className="text-lg font-heading mb-2 text-primary">{t.name}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{t.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+        <p className="text-center text-gray-500 text-xs mt-4">Scroll horizontally to explore →</p>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ */
 /* Footer                                                             */
 /* ------------------------------------------------------------------ */
 function Footer() {
@@ -524,6 +566,21 @@ function App() {
 
   useEffect(() => {
     document.documentElement.classList.toggle('light', theme === 'light')
+
+    // Swap favicon to match theme. Browsers cache favicons by href, so we
+    // recreate the <link> element (with a cache-busting query) to force a reload.
+    const href = (theme === 'light' ? '/favicon-light-32.png' : '/favicon-32.png') + '?t=' + Date.now()
+    const oldLink = document.getElementById('favicon')
+    const link = document.createElement('link')
+    link.id = 'favicon'
+    link.rel = 'icon'
+    link.type = 'image/png'
+    link.href = href
+    if (oldLink && oldLink.parentNode) {
+      oldLink.parentNode.replaceChild(link, oldLink)
+    } else {
+      document.head.appendChild(link)
+    }
   }, [theme])
 
   return (
@@ -550,6 +607,7 @@ function App() {
       <Journeys />
       <Features />
       <SampleManga />
+      <BuiltWith />
       <Footer />
     </div>
   )

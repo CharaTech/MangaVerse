@@ -570,6 +570,15 @@ body {
   75% { transform: translate(-8px, 12px) rotate(1deg); }
 }
 
+/* Hide scrollbar for horizontal scroll regions (Built with) */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes drift4 {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(12px, 8px) rotate(-1deg); }
