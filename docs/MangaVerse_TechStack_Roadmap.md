@@ -1,590 +1,492 @@
-# MANGAVERSE — Complete Technology Stack & Roadmap
+# MangaVerse — Technology Stack & Development Roadmap
 
-## Version 1.0 | April 17, 2026
+**Version:** 1.0  
+**Last Updated:** 2026-07-18  
+**Status:** Reference
 
 ---
 
-## 1. TECHNOLOGY STACK SUMMARY
+## 1. Technology Stack Summary
 
 ### 1.1 Frontend Technologies
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **Framework** | React 18 | Best ecosystem for complex UIs, hooks, concurrent features | 18.3+ |
-| **Build Tool** | Vite 5 | Lightning-fast HMR, optimized builds | 5.x |
-| **State Management** | Zustand | Minimal boilerplate, TypeScript native | 4.5+ |
-| **Alternative State** | Jotai | Atomic state for granular reactivity | 2.x |
-| **Styling** | TailwindCSS 3 | Utility-first, zero-runtime, consistent design | 3.4+ |
-| **CSS-in-JS** | PandaCSS | TypeScript CSS-in-JS for dynamic styles | 0.10+ |
-| **Animation** | Framer Motion 11 | Declarative animations, gestures | 11.x |
-| **Canvas/Manga** | Fabric.js 6 | Object model for manga editing | 6.x |
-| **PDF Rendering** | PDF.js / react-pdf | Fast PDF/Manga page rendering | 4.x |
-| **3D Effects** | Three.js / React Three Fiber | WebGL effects, 3D backgrounds | 0.165+ |
-| **Icons** | Lucide React | Clean SVG icons | Latest |
-| **Forms** | React Hook Form + Zod | Type-safe form validation | 7.x |
-| **Data Fetching** | TanStack Query | Server state management, caching | 5.x |
-| **Routing** | React Router 6 | Standard React routing | 6.x |
-| **i18n** | i18next | Internationalization | Latest |
+| Category         | Technology      | Version | Source |
+| ---------------- | --------------- | ------- | ------ |
+| Framework        | React 18        | 18.3.1  | npm    |
+| Build Tool       | Vite 5          | 5.4.21  | npm    |
+| State Management | Zustand         | 4.5.2   | npm    |
+| Styling          | TailwindCSS     | 3.4.3   | npm    |
+| Animation        | Framer Motion   | 11.18.2 | npm    |
+| 3D Effects       | Three.js        | 0.165.0 | npm    |
+| Canvas           | Fabric.js       | 6.9.1   | npm    |
+| PDF Rendering    | react-pdf       | 8.11.0  | npm    |
+| Icons            | Lucide React    | 0.511.0 | npm    |
+| Forms            | React Hook Form | 7.53.0  | npm    |
+| Validation       | Zod             | 3.23.8  | npm    |
+| Data Fetching    | TanStack Query  | 5.56.0  | npm    |
+| Routing          | React Router    | 6.29.0  | npm    |
+| i18n             | i18next         | 13.6.0  | npm    |
 
 ### 1.2 Backend Technologies
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **Runtime** | Node.js 20 LTS | Stable, async I/O, large ecosystem | 20.x |
-| **Framework** | Express.js 4 | Minimal, flexible REST API | 4.x |
-| **GraphQL** | Apollo Server 4 | Type-safe API, excellent DX | 4.x |
-| **WebSocket** | Socket.io 4 | Real-time, auto-reconnection | 4.x |
-| **Validation** | Zod 3 | Runtime type checking | 3.x |
-| **ORM** | Prisma | Type-safe database access | 5.x |
-| **Task Queue** | BullMQ / Redis | Async job processing | Latest |
-| **Cache** | Redis 7 | Session, rate limiting, queue | 7.x |
-| **Search** | Meilisearch | Fast, typo-tolerant search | Latest |
-| **File Processing** | Sharp | Image processing | Latest |
+| Category   | Technology  | Version     | Source |
+| ---------- | ----------- | ----------- | ------ |
+| Runtime    | Node.js     | 20.19.0 LTS | node   |
+| Framework  | Express.js  | 4.21.2      | npm    |
+| Validation | Zod         | 3.23.8      | npm    |
+| ORM        | Prisma      | 5.22.0      | npm    |
+| Task Queue | BullMQ      | 6.2.1       | npm    |
+| Cache      | Redis       | 7.4.1       | npm    |
+| Search     | Meilisearch | 1.10.1      | docker |
 
 ### 1.3 AI/ML Technologies
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **Image Generation** | Stable Diffusion XL (via ComfyUI) | High-quality manga-style generation | SDXL 1.0 |
-| **Video Generation** | LTX Video Model | Fast, coherent video from images | Latest |
-| **Prompt Interface** | ComfyUI | Visual workflow, node-based pipeline | Latest |
-| **Character Consistency** | LoRA Training (Dreambooth) | Maintain character identity | Latest |
-| **Upscaling** | Real-ESRGAN / Hokusf | Anime-specific upscaling | Latest |
-| **Inpainting** | PlaygroundAI / SDXL Inpaint | Edit manga panels | Latest |
-| **TTS** | ElevenLabs | Natural voice synthesis | API v2 |
-| **Sound Effects** | Meta / Audiobox | Generate manga SFX | API Latest |
-| **Background Generation** | ControlNet + SDXL | Scene backgrounds | Latest |
+| Category              | Technology          | Version | Source |
+| --------------------- | ------------------- | ------- | ------ |
+| Image Generation      | Stable Diffusion XL | 1.0     | local  |
+| Video Generation      | LTX Video           | Latest  | local  |
+| Prompt Interface      | ComfyUI             | Latest  | github |
+| Character Consistency | LoRA (Dreambooth)   | Latest  | local  |
+| Upscaling             | Real-ESRGAN         | Latest  | local  |
+| Inpainting            | PlaygroundAI        | Latest  | local  |
+| TTS                   | ElevenLabs          | API v2  | api    |
+| Sound Effects         | Meta Audiobox       | Latest  | API    |
 
 ### 1.4 Blockchain Technologies
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **L1/L2 Chain** | Polygon zkEVM | EVM-compatible, low gas, zk proofs | Latest |
-| **Alt L2** | Arbitrum | Lower costs for users | Orbit |
-| **Wallet** | RainbowKit + wagmi | Best Web3 UX, multiple chains | Latest |
-| **NFT Standard** | ERC-721 + ERC-1155 | Digital ownership, royalties | OpenZeppelin |
-| **Token** | ERC-20 | Utility token ($MANGA) | OZ Governor |
-| **Marketplace** | Seaport Protocol | gas-optimized trading | 1.6+ |
-| **Oracles** | Chainlink | Off-chain data | VRF + Functions |
-| **Storage** | IPFS + Filecoin | Decentralized content | Latest |
-| **DID** |ENS + Lens | Identity | Latest |
-| **Dev Framework** | Hardhat +Foundry | Smart contract development | Latest |
+| Category      | Technology         | Version            | Source    |
+| ------------- | ------------------ | ------------------ | --------- |
+| L1/L2 Chain   | Polygon zkEVM      | Latest             | polygon   |
+| Alt L2        | Arbitrum           | Orbit              | arbitrum  |
+| Wallet        | RainbowKit         | 2.0.8              | npm       |
+| Wagmi         | wagmi              | 2.9.1              | npm       |
+| NFT Standard  | ERC-721 + ERC-1155 | OpenZeppelin 5.0.2 | npm       |
+| Token         | ERC-20             | OpenZeppelin 5.0.2 | npm       |
+| Marketplace   | Seaport            | 1.6.0              | npm       |
+| Oracles       | Chainlink          | VRF + Functions    | chainlink |
+| Storage       | IPFS               | Latest             | pinata    |
+| DID           | ENS + Lens         | Latest             | lens      |
+| Dev Framework | Hardhat            | 2.22.10            | npm       |
 
-### 1.5 Database Technologies
+### 1.5 Mobile & Desktop Technologies
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **Primary DB** | PostgreSQL 16 | ACID compliance, JSONB, relational | 16.x |
-| **Document Store** | MongoDB 7 | Flexible schema, logs | 7.x |
-| **Graph DB** | Neo4j | Character relationships, social graph | 5.x |
-| **Search** | Meilisearch | Full-text manga search | Latest |
-| **Object Storage** | CloudFlare R2 | S3-compatible, no egress fees | Latest |
-| **CDN** | CloudFlare | Global edge delivery | Latest |
-| **Backup** | pgBackRest | Reliable PostgreSQL backup | Latest |
+| Category        | Technology                          | Version                 | Source |
+| --------------- | ----------------------------------- | ----------------------- | ------ |
+| Framework       | React Native                        | 0.74+                   | npm    |
+| Tooling         | Expo (SDK 51+)                      | latest                  | npm    |
+| Dev Client      | expo-dev-client                     | latest                  | npm    |
+| Build           | EAS Build / Submit                  | latest                  | npm    |
+| Purchases SDK   | react-native-purchases              | 9.5.4+ (Test Store min) | npm    |
+| Paywalls UI     | react-native-purchases-ui           | latest                  | npm    |
+| Galaxy Store    | react-native-purchases-store-galaxy | 10.3.0+                 | npm    |
+| Web/Billing SDK | purchases-js                        | 1.15.0+                 | npm    |
+| Desktop         | Tauri                               | 2.x                     | cargo  |
+| Shared Code     | Turborepo `packages/shared`         | 2.x                     | npm    |
 
-### 1.6 Infrastructure Technologies
+### 1.6 Payments & Monetization (RevenueCat)
 
-| Category | Technology | Why | Version |
-|----------|------------|-----|---------|
-| **Container** | Docker | Consistent environments | Latest |
-| **Orchestration** | Kubernetes (EKS) | Auto-scaling, self-healing | 1.29+ |
-| **Serverless** | Vercel/CloudFlare Pages | Edge functions | Latest |
-| **GPU Compute** | RunPod / Vast.ai | Cost-effective GPU rental | Latest |
-| **CI/CD** | GitHub Actions | Native GitHub integration | Latest |
-| **Monitoring** | Prometheus + Grafana | Metrics + visualization | Latest |
-| **Logging** | Loki + Grafana | Centralized logs | Latest |
-| **APM** | Grafana OnCall | Alerting + on-call | Latest |
-| **Error Tracking** | Sentry | Error monitoring | Latest |
-| **Secrets** | HashiCorp Vault | Secret management | Latest |
-
----
-
-## 2. DEVELOPMENT ROADMAP
-
-### Phase 1: Foundation (Week 1-4)
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  PHASE 1: FOUNDATION                                            │
-├────────────────────────────────────────────────────────────────┤
-│  Goal: Core platform infrastructure + basic manga viewing       │
-│                                                                 │
-│  Week 1: Project Setup                                          │
-│  ├─ Repository setup (Turborepo)                              │
-│  ├─ CI/CD pipeline                                             │
-│  ├─ Design system (TailwindCSS + components)                  │
-│  └─ Database schema design                                     │
-│                                                                 │
-│  Week 2: Backend Core                                           │
-│  ├─ Express API setup                                           │
-│  ├─ User authentication (JWT + OAuth)                          │
-│  ├─ Basic manga CRUD API                                       │
-│  └─ PostgreSQL + Prisma setup                                  │
-│                                                                 │
-│  Week 3: Frontend Core                                          │
-│  ├─ React app setup with Vite                                  │
-│  ├─ Authentication flows                                       │
-│  ├─ Manga listing + detail pages                               │
-│  └─ Basic reader component                                     │
-│                                                                 │
-│  Week 4: Integration + MVP                                     │
-│  ├─ Connect frontend to API                                    │
-│  ├─ Basic manga upload + viewing                              │
-│  ├─ Deploy staging environment                                 │
-│  └─ Test + polish                                              │
-│                                                                 │
-│  Deliverables:                                                 │
-│  ✅ Basic manga upload and reading                             │
-│  ✅ User authentication                                        │
-│  ✅ Responsive reader interface                                │
-└────────────────────────────────────────────────────────────────┘
-```
-
-### Phase 2: AI Integration (Week 5-8)
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  PHASE 2: AI INTEGRATION                                        │
-├────────────────────────────────────────────────────────────────┤
-│  Goal: AI-powered manga creation tools                          │
-│                                                                 │
-│  Week 5: ComfyUI Integration                                   │
-│  ├─ ComfyUI API wrapper                                       │
-│  ├─ SDXL model setup                                          │
-│  ├─ Character prompt interface                                 │
-│  └─ First image generation test                                │
-│                                                                 │
-│  Week 6: Character System                                      │
-│  ├─ Character creation flow                                   │
-│  ├─ Reference image upload + management                        │
-│  ├─ LoRA training pipeline                                     │
-│  └─ Character library CRUD                                    │
-│                                                                 │
-│  Week 7: Scene Generation                                      │
-│  ├─ Background generation                                      │
-│  ├─ Scene composition tool                                     │
-│  ├─ Panel layout editor                                        │
-│  └─ Text bubble placement                                      │
-│                                                                 │
-│  Week 8: Studio MVP                                            │
-│  ├─ Full Studio interface                                     │
-│  ├─ Canvas-based manga editor                                 │
-│  ├─ AI-assisted panel creation                                │
-│  └─ Manga export preview                                       │
-│                                                                 │
-│  Deliverables:                                                 │
-│  ✅ AI character generation with LoRA                         │
-│  ✅ Character library system                                   │
-│  ✅ Basic manga studio interface                              │
-│  ✅ Scene generation tools                                    │
-└────────────────────────────────────────────────────────────────┘
-```
-
-### Phase 3: Animation Engine (Week 9-12)
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  PHASE 3: ANIMATION ENGINE                                      │
-├────────────────────────────────────────────────────────────────┤
-│  Goal: One-click page/scene animations                         │
-│                                                                 │
-│  Week 9: LTX Video Integration                                  │
-│  ├─ LTX model deployment                                      │
-│  ├─ Image-to-video pipeline                                    │
-│  ├─ Prompt engineering for manga                              │
-│  └─ Basic animation generation                                 │
-│                                                                 │
-│  Week 10: Animation Controls                                   │
-│  ├─ Page-only animation button                                │
-│  ├─ Scene-wide animation option                                │
-│  ├─ Duration control (3-10 seconds)                           │
-│  └─ Quality settings (720P/1080P)                             │
-│                                                                 │
-│  Week 11: Audio Integration                                    │
-│  ├─ Sound effect generation                                   │
-│  ├─ TTS for dialogue                                          │
-│  ├─ Background music overlay                                  │
-│  └─ Audio-video sync                                          │
-│                                                                 │
-│  Week 12: Reader Enhancement                                   │
-│  ├─ Animation playback in reader                              │
-│  ├─ User choice modal (page/scene)                             │
-│  ├─ Animation gallery per manga                               │
-│  └─ Download/share animations                                  │
-│                                                                 │
-│  Deliverables:                                                 │
-│  ✅ LTX video generation from manga pages                      │
-│  ✅ "Animate This" button in reader                           │
-│  ✅ Sound effects and audio overlay                           │
-│  ✅ Animation gallery and sharing                              │
-└────────────────────────────────────────────────────────────────┘
-```
-
-### Phase 4: Blockchain (Week 13-16)
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  PHASE 4: BLOCKCHAIN INTEGRATION                                │
-├────────────────────────────────────────────────────────────────┤
-│  Goal: Web3 features - NFT, tokens, ownership                  │
-│                                                                 │
-│  Week 13: Wallet Integration                                   │
-│  ├─ RainbowKit/wagmi setup                                    │
-│  ├─ Multi-chain wallet connection                              │
-│  ├─ Polygon zkEVM integration                                  │
-│  └─ Wallet auth flow                                          │
-│                                                                 │
-│  Week 14: NFT Contracts                                        │
-│  ├─ MangaNFT contract (ERC-721)                                │
-│  ├─ CharacterLicense contract (ERC-1155)                       │
-│  ├─ Royalty engine contract                                    │
-│  └─ Contract deployment + verification                        │
-│                                                                 │
-│Week 15: NFT Features                                         │
-│  ├─ Mint manga as NFT                                         │
-│  ├─ NFT gallery in profile                                    │
-│  ├─ Secondary sales marketplace                                │
-│  └─ Royalties auto-distribution                                │
-│                                                                 │
-│  Week 16: Token & DAO                                         │
-│  ├─ $MANGA token deployment                                   │
-│  ├─ Staking mechanism                                         │
-│  ├─ Basic DAO governance                                       │
-│  └─ Token-gated content                                       │
-│                                                                 │
-│  Deliverables:                                                 │
-│  ✅ Web3 wallet connection                                     │
-│  ✅ NFT minting for manga                                     │
-│  ✅ $MANGA utility token                                      │
-│  ✅ DAO governance basics                                     │
-└────────────────────────────────────────────────────────────────┘
-```
-
-### Phase 5: Scale & Polish (Week 17-20)
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  PHASE 5: SCALE & POLISH                                         │
-├────────────────────────────────────────────────────────────────┤
-│  Goal: Performance, mobile, community features                 │
-│                                                                 │
-│  Week 17: Performance                                           │
-│  ├─ CDN optimization                                          │
-│  ├─ Image lazy loading                                         │
-│  ├─ Animation caching                                          │
-│  └─ Database query optimization                                │
-│                                                                 │
-│  Week 18: Mobile Apps                                          │
-│  ├─ React Native setup                                        │
-│  ├─ iOS build preparation                                      │
-│  ├─ Android build preparation                                  │
-│  └─ Mobile reader optimization                                 │
-│                                                                 │
-│  Week 19: Collaboration                                         │
-│  ├─ Real-time collaboration (Socket.io)                        │
-│  ├─ Project sharing                                           │
-│  ├─ Comment system                                            │
-│  └─ Version history                                           │
-│                                                                 │
-│  Week 20: Community & Launch                                  │
-│  ├─ Social features                                           │
-│  ├─ Discovery algorithm                                       │
-│  ├─ Notification system                                       │
-│  └─ Public launch preparation                                  │
-│                                                                 │
-│  Deliverables:                                                 │
-│  ✅ Optimized performance                                      │
-│  ✅ Mobile apps (iOS/Android)                                 │
-│  ✅ Real-time collaboration                                    │
-│  ✅ Community features                                         │
-└────────────────────────────────────────────────────────────────┘
-```
+| Capability           | RevenueCat Feature                           | Notes                                  |
+| -------------------- | -------------------------------------------- | -------------------------------------- |
+| iOS IAP              | StoreKit wrapper                             | App Store Connect products             |
+| Android IAP          | Google Play Billing wrapper                  | Play Console products                  |
+| Amazon IAP           | Amazon Appstore adapter                      | `.pem` public key                      |
+| Galaxy IAP           | Samsung Galaxy adapter                       | physical device for tests              |
+| Web Billing          | RevenueCat Billing (Stripe)                  | no app-store fee                       |
+| Entitlements         | `pro`, `studio`                              | project-scoped                         |
+| Offerings/Packages   | `default`, `winback`                         | reference `current`                    |
+| Paywalls             | RevenueCatUI + AI Editor                     | dashboard-configured                   |
+| Webhooks             | `INITIAL_PURCHASE`, `PRODUCT_PURCHASE`, etc. | sign verified                          |
+| REST API             | `/v1/subscribers/{id}`                       | server re-validation                   |
+| Offline Entitlements | SDK local grant                              | subscriptions only                     |
+| AI Toolkit           | MCP Server + skills                          | `npx skills add RevenueCat/ai-toolkit` |
 
 ---
 
-## 3. TECHNICAL CONSIDERATIONS
+## 2. Development Roadmap (Detailed)
 
-### 3.1 AI Model Hosting Options
+### Phase 1: Foundation (Weeks 1-4)
 
-#### Option A: Self-Hosted (ComfyUI + RunPod)
-```
-Pros:
-✓ Full control over models
-✓ No per-generation API costs (after GPU rental)
-✓ Custom workflow customization
-✓ Privacy (user data stays local)
+**Week 1: Project Setup**
 
-Cons:
-✗ GPU rental costs (~$0.50-1/hr for A100)
-✗ Technical setup complexity
-✗ Maintenance overhead
-✗ Scalability challenges
+```bash
+# Bootstrap repository
+git clone <repo-url>
+pnpm install
+pnpm prepare  # initializes husky
 
-Estimated Cost: $500-2000/month for moderate usage
-Best For: Studios with technical team, high volume
+# Verify setup
+pnpm lint
+pnpm check-types
+pnpm test:ci
 ```
 
-#### Option B: API-Based (Replicate/OpenAI)
-```
-Pros:
-✓ Minimal setup
-✓ Auto-scaling
-✓ Managed infrastructure
-✓ Easy integration
+**Deliverables:**
 
-Cons:
-✗ Per-call costs ($0.01-0.10 per generation)
-✗ Rate limits
-✗ Less customization
-✗ Dependency on third-party uptime
+- Repository initialized with CI/CD
+- Design system (TailwindCSS + components)
+- Database schema design (Prisma)
 
-Estimated Cost: $0.02-0.10 per generation
-Best For: MVPs, early-stage products
-```
+**Week 2: Backend Core**
 
-#### Option C: Hybrid Approach
-```
-Recommended Strategy:
-✓ Run own ComfyUI for core character generation
-✓ Use API services for backup/spikes
-✓ Cache common results
-✓ Queue system for async processing
+```bash
+# Create Express server
+pnpm add express zod cors helmet
+pnpm add -D @types/express @types/cors @types/helmet
 
-This balances cost, control, and scalability.
+# Generate Prisma schema
+npx prisma init
+# Edit prisma/schema.prisma
+npx prisma migrate dev --name init
 ```
 
-### 3.2 File Format Decisions
+**Deliverables:**
 
-#### Why .MVX Custom Format?
-```
-Traditional Formats:
-✗ PDF: Loses AI metadata, no animation data
-✗ CBZ: Just compressed images, no structure
-✗ PSD: Not web-friendly, no blockchain integration
+- Express API server
+- User authentication (JWT + OAuth)
+- PostgreSQL + Prisma setup
 
-.MVX Benefits:
-✓ ZIP-based for easy extraction
-✓ Preserves layers for future editing
-✓ Embeds AI prompts and LoRA paths
-✓ Animation keyframes included
-✓ Blockchain signature for provenance
-✓ Watermark metadata baked in
-✓ Designed for manga-specific features
-```
+**Week 3: Frontend Core**
 
-### 3.3 Scalability Architecture
+```bash
+# Create React app
+pnpm create vite apps/web --template react-ts
+cd apps/web
+pnpm add tailwindcss @tailwindcss/forms zustand react-router-dom
 
-```
-Traffic Patterns:
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│  Normal Load:          Peak Load (Anime Con):              │
-│                                                             │
-│  ┌─────────┐          ┌─────────┐                          │
-│  │  Web    │          │  Web    │   ─► Normal scaling      │
-│  │  Tier   │          │  Tier   │                          │
-│  └────┬────┘          └────┬────┘                          │
-│       │                     │                               │
-│  ┌────┴────┐          ┌────┴────┐                         │
-│  │   API   │          │   API   │   ─► 3x replicas         │
-│  │  Tier   │          │  Tier   │                          │
-│  └────┬────┘          └────┬────┘                          │
-│       │                     │                               │
-│  ┌────┴────┐          ┌────┴────┐                         │
-│  │   DB    │          │   DB    │   ─► Read replicas       │
-│  │  Tier   │          │  Tier   │                          │
-│  └─────────┘          └─────────┘                          │
-│                                                             │
-│                           ┌─────────┐                       │
-│                           │   AI    │                       │
-││  Queue  │   ─► GPU auto-scale   │
-│                           └─────────┘                       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-
-Key Strategies:
-1. CDN for all static assets (manga pages, images)
-2. API caching with Redis (user sessions, manga metadata)
-3. Async processing for AI (job queue with BullMQ)
-4. Database read replicas for heavy reads
-5. GPU spot instances for AI (70% cheaper)
+# Initialize Tailwind
+npx tailwindcss init -p
 ```
 
-### 3.4 Security Considerations
+**Deliverables:**
 
-```
-Smart Contract Security:
-┌─────────────────────────────────────────────────────────────┐
-│                                                             │
-│  1. Multiple audits before mainnet                         │
-│     - Trail of Bits                                         │
-│     - OpenZeppelin                                         │
-│     - Least Authority                                      │
-│                                                             │
-│  2. Formal verification for critical paths                │
-│     - Royalty distribution                                 │
-│     - Token transfers                                      │
-│     - Access control                                       │
-│                                                             │
-│  3. Timelock on admin functions                           │
-│     - 48-hour delay for protocol changes                  │
-│     - Multi-sig for emergency actions                      │
-│                                                             │
-│  4. Circuit breakers                                       │
-│     - Pause contract if anomalies detected                │
-│     - Automatic if >5% daily losses                       │
-│                                                             │
-│  5. Upgrade proxy with guardian multisig                  │
-│     - Safe upgrade pattern                                 │
-│     - Guardian can pause, not modify                       │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
+- React app with Vite
+- Authentication flows
+- Basic manga listing pages
 
-Application Security:
-- Input validation on ALL endpoints
-- SQL injection prevention (Prisma parameterized queries)
-- XSS protection (Content Security Policy headers)
-- Rate limiting per user/IP
-- File upload validation (type, size, malware scan)
-- Webhook signature verification
-- CORS strict origin checking
+**Week 4: Integration + MVP**
+
+```bash
+# Connect frontend to backend
+# Add proxy to vite.config.ts
+server.proxy = { '/api': 'http://localhost:3000' }
+
+# Deploy staging
+# Configure GitHub Actions for staging deployment
 ```
 
-### 3.5 Cost Breakdown (Monthly)
+**Deliverables:**
 
+- Connected frontend + backend
+- Basic manga upload and reading
+- Staging deployment
+
+---
+
+### Phase 2: AI Integration (Weeks 5-8)
+
+**Week 5: ComfyUI Integration**
+
+```bash
+# Install ComfyUI
+git clone https://github.com/comfyanonymous/ComfyUI.git
+cd ComfyUI
+pip install -r requirements.txt
+python main.py
+
+# Create API wrapper
+pnpm add axios ws
 ```
-Development Phase (Months 1-6):
-┌─────────────────────────────────────────────────────────────┐
-│ Item                      │ Monthly    │ Notes               │
-├──────────────────────────┼────────────┼─────────────────────┤
-│ Development Team (3)     │ $25,000    │ 2 engineers, 1 PM   │
-│ Cloud Infrastructure     │ $2,000     │ Staging, dev        │
-│ GPU Compute (AI)         │ $1,000     │ RunPod spot         │
-│ Domain + SSL             │ $50        │ CloudFlare           │
-│ Software Licenses        │ $500       │ Design tools, etc   │
-│ Legal/Accounting         │ $1,000     │ Entity setup        │
-│ Contingency             │ $1,500     │ 10% buffer          │
-├──────────────────────────┼────────────┼─────────────────────┤
-│ TOTAL                   │ $31,050    │                     │
-└─────────────────────────────────────────────────────────────┘
 
-Production Phase (After Launch):
-┌─────────────────────────────────────────────────────────────┐
-│ Item                      │ Monthly    │ Notes               │
-├──────────────────────────┼────────────┼─────────────────────┤
-│ Hosting (AWS + CF)       │ $5,000     │ Scales with traffic │
-│ GPU Compute (AI)         │ $5,000     │ Per usage           │
-│ Database (RDS)           │ $500       │ Managed PostgreSQL  │
-│ Monitoring               │ $200       │ Grafana Cloud       │
-│ Support Team             │ $8,000     │ 2 support staff     │
-│ Marketing                │ $5,000     │ Initial push        │
-├──────────────────────────┼────────────┼─────────────────────┤
-│ BASE OPERATING COST      │ $23,700    │ Minimum viable      │
-├──────────────────────────┼────────────┼─────────────────────┤
-│ Variable (Per User)      │ $0.50      │ AI generations      │
-│ Variable (Storage)       │ $0.023/GB  │ Per user storage   │
-└─────────────────────────────────────────────────────────────┘
+**Deliverables:**
+
+- ComfyUI API wrapper
+- SDXL model setup
+- Character prompt interface
+
+**Week 6: Character System**
+
+```bash
+# Create character service
+src/services/character.ts
+
+# Add LoRA training endpoint
+# Implement character library CRUD
+```
+
+**Deliverables:**
+
+- Character creation flow
+- Reference image upload
+- LoRA training pipeline
+
+**Week 7: Scene Generation**
+
+```bash
+# Implement background generation
+# Build panel layout editor
+# Add text bubble placement
+```
+
+**Deliverables:**
+
+- Scene generation tool
+- Panel layout editor
+- Text bubble placement
+
+**Week 8: Studio MVP**
+
+```bash
+# Build full Studio interface
+# Implement canvas-based editor
+# Add AI-assisted panel creation
+```
+
+**Deliverables:**
+
+- Full Studio interface
+- Canvas-based manga editor
+- AI-assisted tools
+
+---
+
+### Phase 3: Animation Engine (Weeks 9-12)
+
+**Week 9: LTX Video Integration**
+
+```bash
+# Deploy LTX model
+# Create image-to-video pipeline
+# Implement prompt engineering
+```
+
+**Deliverables:**
+
+- LTX model deployment
+- Image-to-video pipeline
+- Basic animation generation
+
+**Week 10: Animation Controls**
+
+```bash
+# Implement page-only animation
+# Add scene-wide animation option
+# Create duration control
+```
+
+**Deliverables:**
+
+- Animation controls
+- Duration settings
+- Quality settings
+
+**Week 11: Audio Integration**
+
+```bash
+# Integrate TTS
+# Add sound effect generation
+# Implement audio-video sync
+```
+
+**Deliverables:**
+
+- Sound effect generation
+- TTS dialogue
+- Audio-video sync
+
+**Week 12: Reader Enhancement**
+
+```bash
+# Add animation playback
+# Create user choice modal
+# Build animation gallery
+```
+
+**Deliverables:**
+
+- Animation playback in reader
+- Animation gallery
+- Download/share animations
+
+---
+
+### Phase 4: Blockchain (Weeks 13-16)
+
+**Week 13: Wallet Integration**
+
+```bash
+# Install wallet packages
+pnpm add wagmi viem @rainbow-me/rainbowkit
+
+# Configure chains
+# Implement wallet connection flow
+```
+
+**Deliverables:**
+
+- RainbowKit/wagmi setup
+- Multi-chain wallet connection
+- Polygon zkEVM integration
+
+**Week 14: NFT Contracts**
+
+```bash
+# Write MangaNFT contract (ERC-721)
+# Write CharacterLicense contract (ERC-1155)
+# Deploy and verify
+```
+
+**Deliverables:**
+
+- MangaNFT contract
+- CharacterLicense contract
+- Royalty engine
+
+**Week 15: NFT Features**
+
+```bash
+# Implement minting UI
+# Build NFT gallery
+# Add marketplace integration
+```
+
+**Deliverables:**
+
+- NFT minting
+- NFT gallery
+- Marketplace integration
+
+**Week 16: Token & DAO**
+
+```bash
+# Deploy $MANGA token
+# Implement staking
+# Add DAO governance
+```
+
+**Deliverables:**
+
+- $MANGA token
+- Staking mechanism
+- DAO governance
+
+---
+
+### Phase 5: Scale & Polish (Weeks 17-20)
+
+**Week 17: Performance**
+
+```bash
+# Configure CDN
+# Implement image lazy loading
+# Optimize database queries
+```
+
+**Deliverables:**
+
+- CDN optimization
+- Lazy loading
+- Query optimization
+
+**Week 18: Mobile Apps + RevenueCat**
+
+```bash
+# Create Expo project
+npx create-expo-app@latest MangaVerseMobile
+cd MangaVerseMobile
+npx expo install expo-dev-client
+npx expo install react-native-purchases react-native-purchases-ui
+# Configure RevenueCat in App.tsx (Purchases.configure per Platform.OS)
+# Wire Paywalls: RevenueCatUI.presentPaywallIfNeeded({ requiredEntitlementIdentifier: 'pro' })
+# EAS build: ios-simulator + android development profiles
+```
+
+**Deliverables:**
+
+- iOS build (App Store, IAP enabled)
+- Android build (Google Play, BILLING permission)
+- Mobile reader (reuses shared camera-pan + studio code)
+- RevenueCat Paywalls (pro/studio) with Restore button
+- Test Store dev testing + sandbox submission flow
+
+**Week 19: Collaboration**
+
+```bash
+# Implement Socket.io
+# Add project sharing
+# Build comment system
+```
+
+**Deliverables:**
+
+- Real-time collaboration
+- Project sharing
+- Comment system
+
+**Week 20: Community & Launch**
+
+```bash
+# Launch community features
+# Implement discovery algorithm
+# Prepare public launch
+```
+
+**Deliverables:**
+
+- Social features
+- Discovery algorithm
+- Public launch
+
+---
+
+## 3. Setup Commands Reference
+
+### Root Level
+
+```bash
+pnpm install           # Install all dependencies
+pnpm prepare           # Initialize husky
+pnpm build             # Build all packages
+pnpm lint              # Run ESLint
+pnpm check-types       # Run TypeScript check
+pnpm test              # Run tests
+pnpm test:ci           # Run tests with coverage
+```
+
+### API (apps/api)
+
+```bash
+pnpm dev:api           # Start Express server
+pnpm prisma studio     # Open Prisma Studio
+pnpm prisma migrate dev --name <name>  # Create migration
+```
+
+### Web (apps/web)
+
+```bash
+pnpm dev               # Start Vite dev server
+pnpm build             # Production build
+pnpm preview           # Preview production build
+```
+
+### AI (apps/ai)
+
+```bash
+# Start ComfyUI server
+python main.py --listen 0.0.0.0 --port 8188
 ```
 
 ---
 
-## 4. IMPLEMENTATION PRIORITIES
+## 4. Decision Log
 
-### Must-Have (MVP)
-```
-P0 - Critical:
-□ User registration and login
-□ Manga upload (PNG/JPEG pages)
-□ Basic manga reader
-□ AI character generation (basic)
-□ Character library
-
-P1 - Important:
-□ Scene generation
-□ Animation generation
-□ Blockchain wallet connection
-□ NFT minting
-```
-
-### Should-Have (Phase 2)
-```
-P2 - Nice-to-Have:
-□ LoRA character training
-□ Real-time collaboration
-□ Mobile apps
-□ $MANGA token
-□ Sound effects
-```
-
-### Could-Have (Phase 3)
-```
-P3 - Future:
-□ AR manga panels
-□ Advanced AI animations
-□ DAO governance
-□ White-label licensing
-□ AI story generation
-```
+| Date       | Decision                        | Context                        |
+| ---------- | ------------------------------- | ------------------------------ |
+| 2026-07-18 | Use Turborepo for build caching | Faster incremental builds      |
+| 2026-07-18 | PostgreSQL + Prisma             | Type-safe ORM, relational data |
+| 2026-07-18 | Zustand for state               | Lightweight, TS-native         |
+| 2026-07-18 | Polygon zkEVM for NFTs          | Low gas, EVM-compatible        |
 
 ---
 
-## 5. RISK MATRIX
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  Risk                     │ Likelihood │ Impact │ Mitigation  │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  AI generation quality    │   High     │  High  │ Human edit   │
-│  doesn't meet manga       │            │        │ controls     │
-│  standards                │            │        │              │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  Blockchain gas costs    │   Medium   │  High  │ Layer 2,     │
-│  too high for users       │            │        │ batching      │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  GPU costs unsustainable  │   Medium   │  High  │ Tiered AI,   │
-│  for free tier            │            │        │ credit system │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  IP/copyright issues     │   Medium   │  Medium │ Content mod,  │
-│  with AI-generated art   │            │        │ licensing     │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  Regulatory changes in    │   Low      │  High  │ Legal team,  │
-│  crypto/AI space          │            │        │ compliant     │
-│                           │            │        │ architecture  │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  Competitor launches     │   High     │  Medium │ Speed to      │
-│  similar product          │            │        │ market        │
-├───────────────────────────┼────────────┼────────┼──────────────┤
-│  LTX/ComfyUI models      │   Low      │  High  │ Backup APIs,  │
-│  become unavailable      │            │        │ open source   │
-└───────────────────────────┴────────────┴────────┴──────────────┘
-```
-
----
-
-## 6. SUCCESS CRITERIA
-
-### Technical KPIs
-```
-□ Page load time < 2 seconds
-□ API response time < 200ms (p95)
-□ AI generation success rate > 90%
-□ Animation generation < 60 seconds
-□ Uptime > 99.9%
-□ Zero critical security vulnerabilities
-```
-
-### Business KPIs
-```
-□ 1,000 registered artists (Month 3)
-□ 50,000 registered readers (Month 6)
-□ 500 manga uploaded (Month 6)
-□ 10,000 animations generated (Month 6)
-□ 1,000 NFT transactions (Month 6)
-□ Revenue positive (Month 12)
-```
-
----
-
-*Document Version: 1.0*  
-*Last Updated: April 17, 2026*  
-*Status: Ready for Contest Submission*
+_Document Version: 1.0_  
+_Last Updated: July 18, 2026_
