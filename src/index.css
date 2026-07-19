@@ -452,7 +452,7 @@ body {
   50% { opacity: 0.82; }
 }
 
-/* Section divider — crimson gradient line */
+/* Section divider — crimson gradient line with pulsing animation */
 .section-divider {
   width: 48px;
   height: 4px;
@@ -460,6 +460,11 @@ body {
   background: linear-gradient(90deg, var(--color-primary), #ff0057, var(--color-secondary));
   border-radius: 2px;
   opacity: 0.6;
+  animation: divider-pulse 3s ease-in-out infinite;
+}
+@keyframes divider-pulse {
+  0%, 100% { opacity: 0.5; transform: scaleX(1); }
+  50% { opacity: 0.85; transform: scaleX(1.05); }
 }
 
 /* Subtle camera-pan wrapper for hero panel */
