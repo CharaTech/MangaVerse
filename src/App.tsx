@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Sparkles } from '@react-three/drei'
 import {
@@ -98,13 +98,13 @@ function AmbientScene() {
       <Stars
         radius={120}
         depth={50}
-        count={1000}
+        count={350}
         factor={3}
         saturation={0.4}
         fade
-        speed={0.4}
+        speed={0.2}
       />
-      <Sparkles count={40} scale={15} size={1.5} speed={0.2} opacity={0.3} color="#6C5CE7" />
+      <Sparkles count={18} scale={15} size={1.5} speed={0.15} opacity={0.25} color="#6C5CE7" />
     </>
   )
 }
@@ -160,6 +160,72 @@ function FloatingPanel2() {
 }
 
 /* ------------------------------------------------------------------ */
+/* "Arise" intro overlay — pitch-black with purple smoke-cloud         */
+/* outlines + lightning, Solo Leveling style                           */
+/* ------------------------------------------------------------------ */
+function IntroOverlay({ onComplete }: { onComplete: () => void }) {
+  const clouds = [
+    { top: '8%', left: '12%', size: 320, delay: 0.0 },
+    { top: '52%', left: '68%', size: 280, delay: 0.12 },
+    { top: '30%', left: '42%', size: 400, delay: 0.05 },
+    { top: '66%', left: '18%', size: 260, delay: 0.18 },
+    { top: '18%', left: '76%', size: 300, delay: 0.08 },
+    { top: '44%', left: '6%', size: 240, delay: 0.22 },
+  ]
+
+  const bolts = [
+    { top: '20%', left: '30%', height: 280, rotate: -12, delay: 0.1 },
+    { top: '38%', left: '62%', height: 320, rotate: 14, delay: 0.25 },
+    { top: '12%', left: '52%', height: 240, rotate: 4, delay: 0.35 },
+    { top: '55%', left: '42%', height: 300, rotate: -8, delay: 0.45 },
+  ]
+
+  return (
+    <motion.div
+      className="arise-overlay"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, scale: 1.7, filter: 'blur(50px)' }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 1.6 }}
+      onAnimationComplete={onComplete}
+    >
+      {/* outlined purple smoke clouds */}
+      {clouds.map((c, i) => (
+        <motion.div
+          key={`c${i}`}
+          className="arise-cloud"
+          style={{ top: c.top, left: c.left, width: c.size, height: c.size }}
+          initial={{ scale: 0.3, opacity: 0, rotate: -10 }}
+          animate={{ scale: [0.3, 1, 1.25], opacity: [0, 0.95, 0], rotate: [-10, 6, 12] }}
+          transition={{ duration: 1.6, ease: 'easeOut', delay: c.delay + 1.2 }}
+        />
+      ))}
+
+      {/* jagged purple lightning bolts */}
+      {bolts.map((b, i) => (
+        <motion.div
+          key={`b${i}`}
+          className="arise-bolt"
+          style={{ top: b.top, left: b.left, height: b.height, transform: `rotate(${b.rotate}deg)` }}
+          initial={{ scaleY: 0, opacity: 0 }}
+          animate={{ scaleY: [0, 1, 1, 0], opacity: [0, 1, 0.8, 0] }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: b.delay + 1.0, times: [0, 0.2, 0.7, 1] }}
+        />
+      ))}
+
+      <motion.div
+        className="arise-word"
+        initial={{ opacity: 0, scale: 0.7, letterSpacing: '0.1em' }}
+        animate={{ opacity: [0, 1, 1, 0], scale: [0.7, 1.05, 1, 1.1], letterSpacing: ['0.1em', '0.35em', '0.35em', '0.6em'] }}
+        transition={{ duration: 1.8, ease: 'easeOut', times: [0, 0.3, 0.7, 1] }}
+      >
+        Arise
+      </motion.div>
+    </motion.div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
 /* Hero — larger logo, better headline, "Join Auditions" CTA          */
 /* ------------------------------------------------------------------ */
 function Hero() {
@@ -172,7 +238,7 @@ function Hero() {
     <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden px-4 pt-16">
       {/* animated 3D background */}
       <div className="absolute inset-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 8], fov: 55 }}>
+        <Canvas camera={{ position: [0, 0, 8], fov: 55 }} dpr={[1, 1.5]}>
           <AmbientScene />
           <FloatingPanel />
           <FloatingPanel2 />
@@ -199,7 +265,7 @@ function Hero() {
       </motion.span>
 
       <motion.h1
-        className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-center"
+        className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-center heading-crimson pb-2 leading-tight"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
@@ -253,7 +319,7 @@ function Hero() {
           className="relative z-10 glass-card rounded-2xl p-8 text-center"
         >
           <SparklesIcon className="w-10 h-10 text-secondary mx-auto mb-3" />
-          <h3 className="text-2xl font-heading mb-1">You're on the list!</h3>
+          <h3 className="text-2xl font-heading mb-1 heading-crimson">You're on the list!</h3>
           <p className="text-gray-400">We'll notify you when we launch.</p>
         </motion.div>
       )}
@@ -309,7 +375,7 @@ function Journeys() {
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-primary mb-4">
                 {it.icon}
               </div>
-              <h3 className="text-2xl font-heading mb-2">{it.title}</h3>
+              <h3 className="text-2xl font-heading mb-2 heading-crimson">{it.title}</h3>
               <p className="text-gray-400 mb-4">{it.body}</p>
               <ul className="space-y-2 text-sm text-gray-300">
                 {it.points.map((p, j) => (
@@ -357,7 +423,7 @@ function Features() {
               <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary mb-4">
                 {f.icon}
               </div>
-              <h3 className="text-xl font-heading mb-2">{f.title}</h3>
+              <h3 className="text-xl font-heading mb-2 heading-crimson">{f.title}</h3>
               <p className="text-gray-400 text-sm">{f.desc}</p>
             </motion.div>
           ))}
@@ -435,7 +501,7 @@ function SampleManga() {
                 </span>
               </div>
               <div className="p-4">
-                <h3 className="font-heading text-lg mb-1">{m.title}</h3>
+                <h3 className="font-heading text-lg mb-1 heading-crimson">{m.title}</h3>
                 <p className="text-gray-400 text-sm mb-3 line-clamp-2">{m.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {m.tags.map((t, j) => (
@@ -464,7 +530,7 @@ function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) 
       viewport={{ once: true }}
       className="text-center"
     >
-      <h2 className="text-4xl md:text-5xl font-heading mb-3">{title}</h2>
+      <h2 className="text-4xl md:text-5xl font-heading mb-3 heading-crimson">{title}</h2>
       <p className="text-gray-400 max-w-xl mx-auto">{subtitle}</p>
       <div className="tono-divider"><span /><span /><span /></div>
     </motion.div>
@@ -491,18 +557,18 @@ function BuiltWith() {
     <section className="relative py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <SectionTitle title="Built with" subtitle="The stack bringing MangaVerse to life" />
-        <div className="mt-10 flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory hide-scrollbar">
+        <div className="mt-10 flex gap-4 overflow-x-auto pb-4 pt-6 px-1 snap-x snap-mandatory hide-scrollbar">
           {stack.map((t, i) => (
             <motion.div
               key={i}
-              className="journey-card snap-start shrink-0 w-64 p-5"
+              className="journey-card electric-effect snap-start shrink-0 w-64 p-5"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               whileHover={{ y: -5 }}
             >
-              <h3 className="text-lg font-heading mb-2 text-primary">{t.name}</h3>
+              <h3 className="text-lg font-heading mb-2 heading-crimson">{t.name}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{t.desc}</p>
             </motion.div>
           ))}
@@ -530,7 +596,7 @@ function Footer() {
         <div className="flex items-center gap-3">
           <img src={logoUrl} alt="MangaVerse logo" className="w-12 h-12 rounded-xl logo-glow" />
           <div>
-            <p className="font-heading text-lg">
+            <p className="font-heading text-lg heading-crimson">
               Manga<span className="text-brand-gradient">Verse</span>
             </p>
             <p className="text-gray-500 text-sm">Where Manga Comes Alive</p>
@@ -563,6 +629,7 @@ function Footer() {
 /* ------------------------------------------------------------------ */
 function App() {
   const [theme, setTheme] = useState<'dark' | 'light'>(getInitialTheme)
+  const [introDone, setIntroDone] = useState(false)
 
   useEffect(() => {
     document.documentElement.classList.toggle('light', theme === 'light')
@@ -586,6 +653,10 @@ function App() {
   return (
     <div className={`bg-gradient-hero min-h-screen ${theme === 'light' ? 'light' : ''}`}>
       <ThemeToggle theme={theme} setTheme={setTheme} />
+
+      <AnimatePresence>
+        {!introDone && <IntroOverlay onComplete={() => setIntroDone(true)} />}
+      </AnimatePresence>
       {/* Subtle crimson red and electric blue glow effects */}
       <div className="fixed top-0 left-0 w-64 h-64 bg-red-600/10 rounded-full blur-[80px] animate-crimson-glow pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] animate-electric-blue-glow pointer-events-none" />

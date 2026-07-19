@@ -417,6 +417,41 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Heading blend: white → crimson red → white (theme-aware, animated + glow) */
+.heading-crimson {
+  background: linear-gradient(90deg, #ffffff 0%, #DC143C 25%, #ffffff 50%, #DC143C 75%, #ffffff 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heading-shimmer 6s linear infinite, heading-pulse 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(220, 20, 60, 0.5)) drop-shadow(0 0 12px rgba(6, 182, 212, 0.3));
+  will-change: background-position, opacity;
+  transform: translateZ(0);
+}
+.light .heading-crimson {
+  background: linear-gradient(90deg, #0d0d1a 0%, #DC143C 25%, #0d0d1a 50%, #DC143C 75%, #0d0d1a 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: heading-shimmer 6s linear infinite, heading-pulse 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(220, 20, 60, 0.5)) drop-shadow(0 0 12px rgba(6, 182, 212, 0.3));
+  will-change: background-position, opacity;
+  transform: translateZ(0);
+}
+
+@keyframes heading-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Slow, opacity-only pulse (compositor-friendly, no per-frame filter repaint) */
+@keyframes heading-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.82; }
+}
+
 /* Section divider with manga "tono" dots */
 .tono-divider {
   display: flex;
@@ -635,4 +670,76 @@ body {
 
 .light a.hover\:text-secondary:hover {
   color: var(--color-secondary);
+}
+
+/* ------------------------------------------------------------------ */
+/* Accessibility: respect reduced-motion — disable looping animations  */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .heading-crimson {
+    background-position: 50% 50% !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* "Arise" intro overlay — pitch-black with purple smoke clouds +      */
+/* lightning, mimicking Solo Leveling's shadow-army command            */
+/* ------------------------------------------------------------------ */
+.arise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 45%, #1a0a2e 0%, #0a0414 45%, #000000 80%);
+  overflow: hidden;
+}
+
+/* Outlined purple smoke clouds */
+.arise-cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid rgba(170, 90, 230, 0.5);
+  box-shadow:
+    0 0 24px rgba(150, 60, 220, 0.45),
+    inset 0 0 30px rgba(120, 40, 190, 0.35);
+  filter: blur(1px) drop-shadow(0 0 12px rgba(160, 70, 230, 0.6));
+  mix-blend-mode: screen;
+}
+
+/* Jagged purple lightning bolts */
+.arise-bolt {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, #d49bff 40%, #ffffff 50%, #b060f0 60%, transparent);
+  box-shadow: 0 0 12px rgba(190, 100, 255, 0.9), 0 0 26px rgba(150, 60, 220, 0.7);
+  filter: drop-shadow(0 0 6px rgba(200, 120, 255, 0.9));
+  transform-origin: top center;
+}
+
+.arise-word {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  font-size: clamp(2.5rem, 9vw, 7rem);
+  color: #e9d5ff;
+  text-shadow:
+    0 0 18px rgba(170, 100, 220, 0.9),
+    0 0 40px rgba(120, 50, 190, 0.7),
+    0 0 80px rgba(80, 30, 150, 0.6);
 }
