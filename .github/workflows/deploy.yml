@@ -25,6 +25,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          VITE_WAITLIST_URL: ${{ secrets.SUPABASE_WAITLIST_URL }}
 
       - name: Deploy to Surge
         run: npx surge --project ./dist --domain mangaverse.surge.sh

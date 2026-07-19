@@ -31,7 +31,7 @@ import './index.css'
 /* ------------------------------------------------------------------ */
 /* Waitlist — integrates with Supabase backend                        */
 /* ------------------------------------------------------------------ */
-const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL || 'https://qayjcfmostrcdbccfvqn.supabase.co/functions/v1/waitlist'
+const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL
 
 const useWaitlistStore = () => {
   const [email, setEmail] = useState('')
@@ -43,6 +43,10 @@ const useWaitlistStore = () => {
     e.preventDefault()
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email')
+      return
+    }
+    if (!WAITLIST_URL) {
+      setError('Waitlist not configured')
       return
     }
     setError('')
