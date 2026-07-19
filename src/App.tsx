@@ -180,9 +180,8 @@ function Hero() {
       {/* Join Auditions button - glowing cyan */}
       {!submitted && (
         <motion.form
-          as="form"
           onSubmit={submit}
-          className="w-full max-w-md mb-8"
+          className="relative z-10 w-full max-w-md mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -212,7 +211,7 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="glass-card rounded-2xl p-8 text-center"
+          className="relative z-10 glass-card rounded-2xl p-8 text-center"
         >
           <SparklesIcon className="w-10 h-10 text-secondary mx-auto mb-3" />
           <h3 className="text-2xl font-heading mb-1">You're on the list!</h3>
