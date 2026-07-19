@@ -223,3 +223,122 @@ body {
   opacity: 0.3;
   pointer-events: none;
 }
+
+/* ===== MangaVerse revamp styles ===== */
+
+/* Manga panel grid motif (ink / cel-shading feel) */
+.manga-panel {
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 2px;
+  background: linear-gradient(160deg, #1a1a2e 0%, #0d0d1a 100%);
+  box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.25), 0 20px 50px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.manga-panel::before {
+  /* speed-line / ink wash accent */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(135deg, rgba(108, 92, 231, 0.06) 0 2px, transparent 2px 9px);
+  pointer-events: none;
+}
+
+.manga-panel .halftone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 206, 201, 0.18) 1px, transparent 1.5px);
+  background-size: 10px 10px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Speech bubble */
+.speech-bubble {
+  position: relative;
+  background: #ffffff;
+  color: #0d0d1a;
+  border-radius: 14px;
+  padding: 0.5rem 0.9rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 22px;
+  border-width: 9px 7px 0 7px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+
+/* "Animate This" pill button (concept teaser, non-functional) */
+.animate-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #0d0d1a;
+  background: linear-gradient(90deg, #00CEC9, #6C5CE7);
+  box-shadow: 0 0 18px rgba(0, 206, 201, 0.5);
+}
+
+/* Brand gradient text */
+.text-brand-gradient {
+  background: linear-gradient(90deg, #6C5CE7 0%, #00CEC9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Section divider with manga "tono" dots */
+.tono-divider {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 2.5rem 0;
+  opacity: 0.5;
+}
+.tono-divider span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* Subtle camera-pan wrapper for hero panel */
+.camera-pan {
+  animation: camera-pan 18s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes camera-pan {
+  0%   { transform: scale(1.05) translate(-1.5%, 1%); }
+  50%  { transform: scale(1.12) translate(1.5%, -1%); }
+  100% { transform: scale(1.05) translate(-1%, -1.5%); }
+}
+
+/* Journey split cards */
+.journey-card {
+  background: rgba(21, 21, 40, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+.journey-card:hover {
+  border-color: rgba(108, 92, 231, 0.5);
+  box-shadow: 0 0 30px rgba(108, 92, 231, 0.35);
+  transform: translateY(-4px);
+}
+
+/* Logo glow */
+.logo-glow {
+  filter: drop-shadow(0 0 18px rgba(108, 92, 231, 0.6));
+}
