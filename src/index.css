@@ -10,6 +10,46 @@
   --color-cyan: #06b6d4;
   --color-background: #0D0D1A;
   --color-surface: #151528;
+
+  /* Theme-aware semantic tokens (dark default) */
+  --bg-page: #0D0D1A;
+  --bg-page-2: #151528;
+  --bg-gradient: linear-gradient(135deg, #0D0D1A 0%, #151528 50%, #0D0D1A 100%);
+  --text-base: #ffffff;
+  --text-muted: #9ca3af;        /* tailwind gray-400 */
+  --text-faint: #6b7280;        /* tailwind gray-500 */
+  --text-soft: #d1d5db;         /* tailwind gray-300 */
+  --card-bg: rgba(21, 21, 40, 0.5);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --chip-bg: rgba(255, 255, 255, 0.05);
+  --overlay-bg: rgba(21, 21, 40, 0.7);
+  --footer-border: rgba(255, 255, 255, 0.1);
+  --manga-panel-bg: linear-gradient(160deg, #1a1a2e 0%, #0d0d1a 100%);
+  --manga-panel-border: rgba(255, 255, 255, 0.85);
+  --section-divider: rgba(255, 255, 255, 0.05);
+  --input-bg: #151528;
+  --input-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Light theme overrides */
+.light {
+  --bg-page: #f8f9ff;
+  --bg-page-2: #eef0fb;
+  --bg-gradient: linear-gradient(135deg, #f8f9ff 0%, #eef0fb 50%, #f8f9ff 100%);
+  --text-base: #0d0d1a;
+  --text-muted: #5b6472;
+  --text-faint: #8b94a3;
+  --text-soft: #3a4252;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(108, 92, 231, 0.18);
+  --chip-bg: rgba(108, 92, 231, 0.08);
+  --overlay-bg: rgba(255, 255, 255, 0.75);
+  --footer-border: rgba(108, 92, 231, 0.15);
+  --manga-panel-bg: linear-gradient(160deg, #ffffff 0%, #eef0fb 100%);
+  --manga-panel-border: rgba(13, 13, 26, 0.85);
+  --section-divider: rgba(13, 13, 26, 0.06);
+  --input-bg: #ffffff;
+  --input-border: rgba(13, 13, 26, 0.12);
 }
 
 * {
@@ -24,9 +64,10 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--color-background);
-  color: white;
+  background: var(--bg-page);
+  color: var(--text-base);
   overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 .font-heading {
@@ -73,7 +114,7 @@ body {
 
 /* Gradient background */
 .bg-gradient-hero {
-  background: linear-gradient(135deg, #0D0D1A 0%, #151528 50%, #0D0D1A 100%);
+  background: var(--bg-gradient);
 }
 
 .bg-gradient-card {
@@ -82,15 +123,15 @@ body {
 
 /* Glass morphism */
 .glass {
-  background: rgba(21, 21, 40, 0.7);
+  background: var(--overlay-bg);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(108, 92, 231, 0.2);
 }
 
 .glass-card {
-  background: rgba(21, 21, 40, 0.5);
+  background: var(--card-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--card-border);
 }
 
 /* Animations */
@@ -307,9 +348,9 @@ body {
 /* Manga panel grid motif (ink / cel-shading feel) */
 .manga-panel {
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  border: 2px solid var(--manga-panel-border);
   border-radius: 2px;
-  background: linear-gradient(160deg, #1a1a2e 0%, #0d0d1a 100%);
+  background: var(--manga-panel-bg);
   box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.25), 0 20px 50px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
@@ -404,8 +445,8 @@ body {
 
 /* Journey split cards */
 .journey-card {
-  background: rgba(21, 21, 40, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
@@ -534,4 +575,55 @@ body {
   25% { transform: translate(12px, 8px) rotate(-1deg); }
   50% { transform: translate(-10px, -15px) rotate(2deg); }
   75% { transform: translate(8px, -10px) rotate(-1deg); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Light theme — remap hardcoded Tailwind grays to theme tokens       */
+/* ------------------------------------------------------------------ */
+.light body {
+  color: var(--text-base);
+}
+
+.light .text-white {
+  color: var(--text-base);
+}
+
+.light .text-gray-300 {
+  color: var(--text-soft);
+}
+
+.light .text-gray-400 {
+  color: var(--text-muted);
+}
+
+.light .text-gray-500 {
+  color: var(--text-faint);
+}
+
+.light .placeholder\:text-gray-500::placeholder {
+  color: var(--text-faint);
+}
+
+.light .bg-surface {
+  background: var(--input-bg);
+}
+
+.light .border-white\/10 {
+  border-color: var(--input-border);
+}
+
+.light .bg-white\/5 {
+  background: var(--chip-bg);
+}
+
+.light .bg-white\/10 {
+  background: rgba(13, 13, 26, 0.06);
+}
+
+.light .border-white\/15 {
+  border-color: rgba(13, 13, 26, 0.15);
+}
+
+.light a.hover\:text-secondary:hover {
+  color: var(--color-secondary);
 }

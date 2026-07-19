@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Stars, Sparkles } from '@react-three/drei'
@@ -18,6 +18,8 @@ import {
   ChevronDown,
   UserPlus,
   Layers,
+  Sun,
+  Moon,
 } from 'lucide-react'
 import logoUrl from './assets/logo.png'
 import cyberRonin from './assets/cyber-ronin.png'
@@ -45,6 +47,43 @@ const useWaitlistStore = () => {
   }
 
   return { email, setEmail, submitted, error, submit }
+}
+
+/* ------------------------------------------------------------------ */
+/* Theme — light / dark with persistence + system preference          */
+/* ------------------------------------------------------------------ */
+const getInitialTheme = (): 'dark' | 'light' => {
+  if (typeof window === 'undefined') return 'dark'
+  const saved = localStorage.getItem('mv-theme')
+  if (saved === 'light' || saved === 'dark') return saved
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+}
+
+function ThemeToggle({ theme, setTheme }: { theme: 'dark' | 'light'; setTheme: (t: 'dark' | 'light') => void }) {
+  const toggle = () => {
+    const next = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    document.documentElement.classList.toggle('light', next === 'light')
+    localStorage.setItem('mv-theme', next)
+  }
+
+  return (
+    <motion.button
+      type="button"
+      onClick={toggle}
+      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.94 }}
+      className="fixed top-5 right-5 z-50 w-11 h-11 rounded-full flex items-center justify-center backdrop-blur-md border transition-colors"
+      style={{
+        background: theme === 'dark' ? 'rgba(255,255,255,0.10)' : 'rgba(13,13,26,0.10)',
+        borderColor: theme === 'dark' ? 'rgba(255,255,255,0.15)' : 'rgba(13,13,26,0.15)',
+        color: theme === 'dark' ? '#ffffff' : '#0d0d1a',
+      }}
+    >
+      {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+    </motion.button>
+  )
 }
 
 /* ------------------------------------------------------------------ */
@@ -481,8 +520,15 @@ function Footer() {
 /* App                                                                 */
 /* ------------------------------------------------------------------ */
 function App() {
+  const [theme, setTheme] = useState<'dark' | 'light'>(getInitialTheme)
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light')
+  }, [theme])
+
   return (
-    <div className="bg-gradient-hero min-h-screen">
+    <div className={`bg-gradient-hero min-h-screen ${theme === 'light' ? 'light' : ''}`}>
+      <ThemeToggle theme={theme} setTheme={setTheme} />
       {/* Subtle crimson red and electric blue glow effects */}
       <div className="fixed top-0 left-0 w-64 h-64 bg-red-600/10 rounded-full blur-[80px] animate-crimson-glow pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] animate-electric-blue-glow pointer-events-none" />
