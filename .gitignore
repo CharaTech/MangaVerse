@@ -40,3 +40,4 @@ coverage/
 # Temporary files
 tmp/
 *.tmp.env.production
+.env.production
