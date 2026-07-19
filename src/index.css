@@ -155,7 +155,7 @@ body {
   transform: scale(1.05);
 }
 
-/* Electric effect on hover */
+/* Electric effect on hover - crimson red sparks with electric blue sweep */
 .electric-effect {
   position: relative;
   overflow: hidden;
@@ -171,22 +171,66 @@ body {
   background: linear-gradient(
     45deg,
     transparent 30%,
-    rgba(108, 92, 231, 0.3) 50%,
+    rgba(220, 20, 60, 0.4) 50%,
     transparent 70%
   );
   transform: rotate(45deg);
-  transition: all 0.6s ease;
   opacity: 0;
 }
 
 .electric-effect:hover::before {
-  animation: electric-sweep 0.6s ease;
+  animation: electric-sweep 0.8s ease-out;
+}
+
+.electric-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: rgba(220, 20, 60, 0.8);
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.8),
+              0 0 12px rgba(6, 182, 212, 0.6);
+  border-radius: 50% 50% 0 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.electric-effect:hover::after {
+  opacity: 0.7;
+  animation: spark 0.4s ease-out forwards;
 }
 
 @keyframes electric-sweep {
   0% { left: -100%; opacity: 0; }
-  50% { opacity: 1; }
+  20% { opacity: 0.8; }
+  50% { opacity: 0.6; }
   100% { left: 100%; opacity: 0; }
+}
+
+@keyframes spark {
+  0% {
+    height: 0;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  30% {
+    height: 120%;
+    opacity: 0.8;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Ripple effect */
@@ -342,4 +386,119 @@ body {
 /* Logo glow */
 .logo-glow {
   filter: drop-shadow(0 0 18px rgba(108, 92, 231, 0.6));
+}
+
+/* Crimson red and electric blue glow animations */
+@keyframes crimson-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(220, 20, 60, 0.4),
+                0 0 20px rgba(220, 20, 60, 0.3),
+                0 0 30px rgba(220, 20, 60, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(220, 20, 60, 0.6),
+                0 0 30px rgba(220, 20, 60, 0.4),
+                0 0 45px rgba(220, 20, 60, 0.3);
+  }
+}
+
+@keyframes electric-blue-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(6, 182, 212, 0.3),
+                0 0 15px rgba(6, 182, 212, 0.2),
+                0 0 25px rgba(6, 182, 212, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.5),
+                0 0 20px rgba(6, 182, 212, 0.3),
+                0 0 35px rgba(6, 182, 212, 0.2);
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.animate-crimson-glow {
+  animation: crimson-glow 3s ease-in-out infinite;
+}
+
+.animate-electric-blue-glow {
+  animation: electric-blue-glow 2.5s ease-in-out infinite;
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 4s ease-in-out infinite;
+}
+
+/* Subtle animated glow effect */
+.subtle-glow {
+  position: relative;
+  box-shadow: 0 0 8px rgba(220, 20, 60, 0.2),
+              0 0 12px rgba(6, 182, 212, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.subtle-glow:hover {
+  box-shadow: 0 0 15px rgba(220, 20, 60, 0.4),
+              0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+/* Parallax manga panels */
+.parallax-panel {
+  position: absolute;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.05) 0%, rgba(6, 182, 212, 0.03) 100%);
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+.parallax-panel:nth-child(1) {
+  top: 10%; left: 5%; width: 120px; height: 160px;
+  animation: drift1 25s linear infinite;
+}
+
+.parallax-panel:nth-child(2) {
+  top: 20%; right: 8%; width: 100px; height: 140px;
+  animation: drift2 30s linear infinite;
+}
+
+.parallax-panel:nth-child(3) {
+  bottom: 15%; left: 10%; width: 140px; height: 100px;
+  animation: drift3 28s linear infinite;
+}
+
+.parallax-panel:nth-child(4) {
+  bottom: 25%; right: 15%; width: 90px; height: 120px;
+  animation: drift4 32s linear infinite;
+}
+
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(10px, -15px) rotate(2deg); }
+  50% { transform: translate(-5px, 10px) rotate(-1deg); }
+  75% { transform: translate(8px, -8px) rotate(1.5deg); }
+}
+
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-8px, -12px) rotate(-2deg); }
+  50% { transform: translate(12px, 5px) rotate(1deg); }
+  75% { transform: translate(-6px, 8px) rotate(-1.5deg); }
+}
+
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-10px, 15px) rotate(1deg); }
+  50% { transform: translate(15px, -10px) rotate(-2deg); }
+  75% { transform: translate(-8px, 12px) rotate(1deg); }
+}
+
+@keyframes drift4 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(12px, 8px) rotate(-1deg); }
+  50% { transform: translate(-10px, -15px) rotate(2deg); }
+  75% { transform: translate(8px, -10px) rotate(-1deg); }
 }
