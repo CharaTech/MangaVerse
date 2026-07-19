@@ -31,7 +31,7 @@ import './index.css'
 /* ------------------------------------------------------------------ */
 /* Waitlist — integrates with Supabase backend                        */
 /* ------------------------------------------------------------------ */
-const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL || 'https://waitlist.your-project.supabase.co/functions/v1/waitlist'
+const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL || 'https://qayjcfmostrcdbccfvqn.supabase.co/functions/v1/waitlist'
 
 const useWaitlistStore = () => {
   const [email, setEmail] = useState('')
