@@ -29,24 +29,43 @@ import salarymanX from './assets/salaryman-x.png'
 import './index.css'
 
 /* ------------------------------------------------------------------ */
-/* Waitlist (front-end only — no backend, no real submission)        */
+/* Waitlist — integrates with Supabase backend                        */
 /* ------------------------------------------------------------------ */
+const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL || 'https://waitlist.your-project.supabase.co/functions/v1/waitlist'
+
 const useWaitlistStore = () => {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email || !email.includes('@')) {
       setError('Please enter a valid email')
       return
     }
     setError('')
-    setSubmitted(true)
+    setLoading(true)
+    try {
+      const res = await fetch(WAITLIST_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, action: 'subscribe' }),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Submission failed')
+      }
+      setSubmitted(true)
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong')
+    } finally {
+      setLoading(false)
+    }
   }
 
-  return { email, setEmail, submitted, error, submit }
+  return { email, setEmail, submitted, error, submit, loading }
 }
 
 /* ------------------------------------------------------------------ */
@@ -291,7 +310,7 @@ function Hero() {
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
-  const { email, setEmail, submitted, error, submit } = useWaitlistStore()
+  const { email, setEmail, submitted, error, submit, loading } = useWaitlistStore()
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden px-4 pt-16">
@@ -360,11 +379,12 @@ function Hero() {
             />
             <motion.button
               type="submit"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              disabled={loading}
+              whileHover={{ scale: loading ? 1 : 1.03 }}
+              whileTap={{ scale: loading ? 1 : 0.97 }}
               className="px-6 py-3 rounded-xl bg-gradient-to-r from-secondary to-cyan-500 font-semibold text-white flex items-center justify-center gap-2 electric-effect ripple shadow-[0_0_20px_rgba(0,206,201,0.5)]"
             >
-              Join Auditions <ArrowRight size={18} />
+              {loading ? 'Submitting...' : <>Join Auditions <ArrowRight size={18} /></>}
             </motion.button>
           </div>
           {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
