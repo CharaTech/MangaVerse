@@ -12,9 +12,9 @@ create table waitlist (
 create index idx_waitlist_email on waitlist(email);
 create index idx_waitlist_confirmed on waitlist(confirmed);
 
--- Row level security
+-- Row level security - allow public insert without auth
 alter table waitlist enable row level security;
 
-create policy "Allow signup" on waitlist for insert with check (true);
-create policy "Allow read own" on waitlist for select using (email = current_setting('request.email', true));
-create policy "Allow update own" on waitlist for update using (email = current_setting('request.email', true));
+create policy "Allow public signup" on waitlist for insert to public with check (true);
+create policy "Allow read" on waitlist for select to public using (true);
+create policy "Allow update" on waitlist for update to public using (true);

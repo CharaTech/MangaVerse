@@ -1,9 +1,5 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-const supabase = createClient(
-  Deno.env.get('CLIENT_URL') ?? 'https://placeholder.supabase.co',
-  Deno.env.get('CLIENT_KEY') ?? 'placeholder-key'
-)
+const SUPABASE_URL = Deno.env.get('CLIENT_URL')?.replace('/rest/v1', '') || 'https://placeholder.supabase.co'
+const SUPABASE_KEY = Deno.env.get('CLIENT_KEY') || 'placeholder-key'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -27,32 +23,52 @@ Deno.serve(async (req) => {
 
     if (action === 'subscribe') {
       const token = crypto.randomUUID()
-      const { data, error } = await supabase.from('waitlist').insert({
-        email,
-        confirmation_token: token,
-      }).select().single()
+      
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({
+          email,
+          confirmation_token: token,
+        }),
+      })
 
-      if (error) {
-        if (error.message.includes('duplicate')) {
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({}))
+        if (res.status === 409 || error.message?.includes('duplicate')) {
           return new Response(JSON.stringify({ error: 'Already subscribed' }), {
             status: 409,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           })
         }
-        throw error
+        throw new Error(error.message || 'Insert failed')
       }
 
-      return new Response(JSON.stringify({ success: true, id: data.id }), {
+      const data = await res.json()
+      return new Response(JSON.stringify({ success: true, id: data[0]?.id || token }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
     }
 
     if (action === 'confirm') {
-      const { error } = await supabase.from('waitlist')
-        .update({ confirmed: true })
-        .eq('confirmation_token', email)
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?confirmation_token=eq.${email}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({ confirmed: true }),
+      })
       
-      if (error) throw error
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({}))
+        throw new Error(error.message || 'Update failed')
+      }
 
       return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -60,12 +76,20 @@ Deno.serve(async (req) => {
     }
 
     if (action === 'notify') {
-      const { error } = await supabase.from('waitlist')
-        .update({ notified: true })
-        .eq('email', email)
-        .eq('confirmed', true)
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?email=eq.${encodeURIComponent(email)}&confirmed=eq.true`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+        },
+        body: JSON.stringify({ notified: true }),
+      })
       
-      if (error) throw error
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({}))
+        throw new Error(error.message || 'Update failed')
+      }
 
       return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
