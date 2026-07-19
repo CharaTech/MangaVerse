@@ -17,6 +17,7 @@ import {
   Play,
   ChevronDown,
   UserPlus,
+  Layers,
 } from 'lucide-react'
 import logoUrl from './assets/logo.png'
 import cyberRonin from './assets/cyber-ronin.png'
