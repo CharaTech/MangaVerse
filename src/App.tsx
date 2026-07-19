@@ -635,8 +635,15 @@ function BuiltWith() {
   return (
     <section className="relative py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <SectionTitle title="Built with" subtitle="The stack bringing MangaVerse to life" />
-        <div className="mt-10 flex gap-4 overflow-x-auto pb-4 pt-6 px-1 snap-x snap-mandatory hide-scrollbar">
+        <SectionTitle title="Built with" subtitle="The stack bringing MangaVerse to life" showDivider={false} />
+        <div className="flex justify-center mt-4 mb-6">
+          <div className="flex gap-2">
+            <motion.div className="w-2 h-2 rounded-full bg-primary/60 animate-pulse" />
+            <motion.div className="w-2 h-2 rounded-full bg-secondary/60 animate-pulse [animation-delay:0.3s]" />
+            <motion.div className="w-2 h-2 rounded-full bg-cyan-500/60 animate-pulse [animation-delay:0.6s]" />
+          </div>
+        </div>
+        <div className="flex gap-4 overflow-x-auto pb-4 pt-6 px-1 snap-x snap-mandatory hide-scrollbar">
           {stack.map((t, i) => (
             <motion.div
               key={i}
@@ -652,7 +659,6 @@ function BuiltWith() {
             </motion.div>
           ))}
         </div>
-        <p className="text-center text-gray-500 text-xs mt-4">Scroll horizontally to explore →</p>
       </div>
     </section>
   )
