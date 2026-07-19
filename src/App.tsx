@@ -309,7 +309,7 @@ function Features() {
           {features.map((f, i) => (
             <motion.div
               key={i}
-              className="glass-card rounded-2xl p-6 hover-glow"
+              className="glass-card rounded-2xl p-6 hover-glow electric-effect"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
