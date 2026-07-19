@@ -743,3 +743,50 @@ body {
     0 0 40px rgba(120, 50, 190, 0.7),
     0 0 80px rgba(80, 30, 150, 0.6);
 }
+
+/* ------------------------------------------------------------------ */
+/* Cursor trail — purple smoke puffs + lightning following pointer     */
+/* ------------------------------------------------------------------ */
+.cursor-trail-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Soft purple smoke puff */
+.cursor-puff {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.4);
+  background: radial-gradient(circle, rgba(190, 110, 255, 0.55) 0%, rgba(140, 60, 220, 0.35) 45%, transparent 70%);
+  box-shadow: 0 0 14px rgba(170, 90, 230, 0.5);
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  animation: cursor-puff 0.9s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes cursor-puff {
+  0% { opacity: 0.9; transform: translate(-50%, -50%) scale(0.4); }
+  100% { opacity: 0; transform: translate(-50%, -65%) scale(1.6); }
+}
+
+/* Jagged purple lightning streak */
+.cursor-bolt {
+  position: absolute;
+  width: 2px;
+  transform-origin: top center;
+  background: linear-gradient(180deg, transparent, #e9c8ff 40%, #ffffff 50%, #c070f0 60%, transparent);
+  box-shadow: 0 0 8px rgba(200, 120, 255, 0.9), 0 0 16px rgba(150, 60, 220, 0.7);
+  filter: drop-shadow(0 0 4px rgba(210, 130, 255, 0.9));
+  animation: cursor-bolt 0.45s ease-out forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes cursor-bolt {
+  0% { opacity: 0; transform: scaleY(0.2) rotate(var(--r, 0deg)); }
+  30% { opacity: 1; transform: scaleY(1) rotate(var(--r, 0deg)); }
+  100% { opacity: 0; transform: scaleY(1) rotate(var(--r, 0deg)); }
+}

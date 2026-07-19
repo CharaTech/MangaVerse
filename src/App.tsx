@@ -160,6 +160,65 @@ function FloatingPanel2() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Cursor trail — purple smoke puffs + lightning following the pointer */
+/* ------------------------------------------------------------------ */
+function CursorTrail() {
+  const layerRef = useRef<HTMLDivElement>(null)
+  const last = useRef<{ x: number; y: number; t: number }>({ x: 0, y: 0, t: 0 })
+
+  useEffect(() => {
+    const layer = layerRef.current
+    if (!layer) return
+
+    let frame = 0
+    const onMove = (e: MouseEvent) => {
+      const now = performance.now()
+      const prev = last.current
+      // throttle: spawn at most every ~28ms and only when moved enough
+      const dist = Math.hypot(e.clientX - prev.x, e.clientY - prev.y)
+      if (now - prev.t < 28 || dist < 6) return
+      last.current = { x: e.clientX, y: e.clientY, t: now }
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => spawn(e.clientX, e.clientY))
+    }
+
+    const spawn = (x: number, y: number) => {
+      // smoke puff
+      const puff = document.createElement('span')
+      puff.className = 'cursor-puff'
+      puff.style.left = `${x}px`
+      puff.style.top = `${y}px`
+      const s = 14 + Math.random() * 22
+      puff.style.width = `${s}px`
+      puff.style.height = `${s}px`
+      layer.appendChild(puff)
+      puff.addEventListener('animationend', () => puff.remove())
+
+      // occasional lightning bolt
+      if (Math.random() < 0.45) {
+        const bolt = document.createElement('span')
+        bolt.className = 'cursor-bolt'
+        bolt.style.left = `${x}px`
+        bolt.style.top = `${y}px`
+        const h = 18 + Math.random() * 26
+        bolt.style.height = `${h}px`
+        bolt.style.setProperty('--r', `${ -25 + Math.random() * 50 }deg`)
+        layer.appendChild(bolt)
+        bolt.addEventListener('animationend', () => bolt.remove())
+      }
+    }
+
+    window.addEventListener('mousemove', onMove)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  return <div ref={layerRef} className="cursor-trail-layer" aria-hidden />
+}
+
+/* ------------------------------------------------------------------ */
 /* "Arise" intro overlay — pitch-black with purple smoke-cloud         */
 /* outlines + lightning, Solo Leveling style                           */
 /* ------------------------------------------------------------------ */
@@ -657,6 +716,8 @@ function App() {
       <AnimatePresence>
         {!introDone && <IntroOverlay onComplete={() => setIntroDone(true)} />}
       </AnimatePresence>
+
+      <CursorTrail />
       {/* Subtle crimson red and electric blue glow effects */}
       <div className="fixed top-0 left-0 w-64 h-64 bg-red-600/10 rounded-full blur-[80px] animate-crimson-glow pointer-events-none" />
       <div className="fixed bottom-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px] animate-electric-blue-glow pointer-events-none" />
