@@ -130,7 +130,7 @@ function Hero() {
   const { email, setEmail, submitted, error, submit } = useWaitlistStore()
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4">
+    <section className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden px-4 pt-16">
       {/* animated 3D background */}
       <div className="absolute inset-0">
         <Canvas camera={{ position: [0, 0, 8], fov: 55 }}>
