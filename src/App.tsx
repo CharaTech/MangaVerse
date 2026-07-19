@@ -32,6 +32,7 @@ import './index.css'
 /* Waitlist — integrates with Supabase backend                        */
 /* ------------------------------------------------------------------ */
 const WAITLIST_URL = import.meta.env.VITE_WAITLIST_URL
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_f29w821nYY1Ziv6UdRzYZA_PvhHlNj5'
 
 const useWaitlistStore = () => {
   const [email, setEmail] = useState('')
@@ -54,7 +55,11 @@ const useWaitlistStore = () => {
     try {
       const res = await fetch(WAITLIST_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': SUPABASE_PUBLISHABLE_KEY,
+        },
         body: JSON.stringify({ email, action: 'subscribe' }),
       })
       if (!res.ok) {

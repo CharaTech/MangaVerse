@@ -1,5 +1,5 @@
-const SUPABASE_URL = Deno.env.get('CLIENT_URL')?.replace('/rest/v1', '') || 'https://placeholder.supabase.co'
-const SUPABASE_KEY = Deno.env.get('CLIENT_KEY') || 'placeholder-key'
+const SUPABASE_URL = 'https://qayjcfmostrcdbccfvqn.supabase.co'
+const SUPABASE_SERVICE_KEY = Deno.env.get('SERVICE_KEY')
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -9,6 +9,13 @@ const corsHeaders = {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
+  }
+
+  if (!SUPABASE_SERVICE_KEY) {
+    return new Response(JSON.stringify({ error: 'SERVICE_KEY not configured in function secrets' }), {
+      status: 500,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
   }
 
   try {
@@ -28,8 +35,8 @@ Deno.serve(async (req) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=representation',
+          'apikey': SUPABASE_SERVICE_KEY,
         },
         body: JSON.stringify({
           email,
@@ -38,17 +45,29 @@ Deno.serve(async (req) => {
       })
 
       if (!res.ok) {
-        const error = await res.json().catch(() => ({}))
-        if (res.status === 409 || error.message?.includes('duplicate')) {
-          return new Response(JSON.stringify({ error: 'Already subscribed' }), {
-            status: 409,
+        const text = await res.text()
+        try {
+          const error = JSON.parse(text)
+          if (res.status === 409 || error.message?.includes('duplicate')) {
+            return new Response(JSON.stringify({ error: 'Already subscribed' }), {
+              status: 409,
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            })
+          }
+          return new Response(JSON.stringify({ error: error.message || 'Insert failed', status: res.status }), {
+            status: res.status,
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          })
+        } catch (e) {
+          return new Response(JSON.stringify({ error: 'Insert failed', status: res.status }), {
+            status: res.status,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' },
           })
         }
-        throw new Error(error.message || 'Insert failed')
       }
 
-      const data = await res.json()
+      const text = await res.text()
+      const data = text ? JSON.parse(text) : []
       return new Response(JSON.stringify({ success: true, id: data[0]?.id || token }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
@@ -59,14 +78,14 @@ Deno.serve(async (req) => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey': SUPABASE_SERVICE_KEY,
         },
         body: JSON.stringify({ confirmed: true }),
       })
       
       if (!res.ok) {
-        const error = await res.json().catch(() => ({}))
+        const text = await res.text()
+        const error = JSON.parse(text).catch(() => ({}))
         throw new Error(error.message || 'Update failed')
       }
 
@@ -80,14 +99,14 @@ Deno.serve(async (req) => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'apikey': SUPABASE_SERVICE_KEY,
         },
         body: JSON.stringify({ notified: true }),
       })
       
       if (!res.ok) {
-        const error = await res.json().catch(() => ({}))
+        const text = await res.text()
+        const error = JSON.parse(text).catch(() => ({}))
         throw new Error(error.message || 'Update failed')
       }
 
