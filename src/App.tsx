@@ -179,7 +179,14 @@ function Hero() {
 
       {/* Join Auditions button - glowing cyan */}
       {!submitted && (
-        <motion.form onSubmit={submit} className="w-full max-w-md mb-8">
+        <motion.form
+          as="form"
+          onSubmit={submit}
+          className="w-full max-w-md mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
           <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="email"
@@ -198,7 +205,7 @@ function Hero() {
             </motion.button>
           </div>
           {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
-        </form>
+        </motion.form>
       )}
 
       {submitted && (
