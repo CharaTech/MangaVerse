@@ -1,129 +1,172 @@
 # MangaVerse — Progress Update
 
-**Date:** 2026-07-13
-**Status:** Scaffold in progress (single TypeScript project, not a monorepo)
+**Date:** 2026-07-18  
+**Status:** Documentation transformation complete
 
 ---
 
-## 1. Documentation restructure (done)
+## 1. Documentation Transformation (COMPLETE)
 
-- Renamed the old `tmp/` directory to `docs/` (git history preserved via `git mv`).
-- `docs/` now holds the five project documents:
-  - `MangaVerse_Project_Briefing.md`
-  - `MangaVerse_Technical_Blueprint.md`
-  - `MangaVerse_TechStack_Roadmap.md`
-  - `MangaVerse_Sponsor_Request.md`
-  - `MangaVerse_3D_Logo_ComfyUI_Guide.md`
-- Added a **Documentation** section + TOC entry to `README.md` linking each doc.
-- Removed the `tmp/` ignore rule from `.gitignore` (docs must be tracked) and
-  expanded `.gitignore` for the documented stack: `.turbo/`, `.next/`,
-  Hardhat/Foundry artifacts (`artifacts/`, `cache/`, `out/`, `broadcast/`,
-  `forge-cache/`, `.gas-snapshot`), AI/ML weights (`*.safetensors`, `*.ckpt`,
-  `loras/`, `outputs/`, `*.mvx`), local DBs, coverage/test-report dirs, and
-  `.env.*` while allowing `.env.example`.
+### 1.1 ROADMAP.md Created
 
-## 2. Tooling / standards scaffold (done — emulating AO Holdings templates)
+Created new `docs/ROADMAP.md` with:
 
-Mirrors `ao-frontend-base-template` and `synergy-erp-api-base-template`,
-re-implemented locally (the private `@synergyerp/*-standards` packages are not
-available here).
+- 7-phase, dependency-ordered development plan
+- Explicit Entry/Exit criteria per level
+- Detailed deliverables and key actions
+- Testing strategy matrix
+- Deployment pipeline specification
+- Risk mitigation table
 
-- **Package manager:** pnpm (single package, `type: module`).
-- **Husky git hooks** (`.husky/`):
-  - `pre-commit` — checks pnpm, detects `--no-verify`, auto-formats staged files
-    with Prettier, runs `lint-staged`, early commitlint validation.
-  - `pre-push` — runs the full quality gate + commitlint range check.
-  - `commit-msg` — commitlint validation.
-  - `post-commit` — detects bypassed pre-commit hooks (`--no-verify`).
-- **Commitlint** — Conventional Commits (`feat, fix, security, perf, docs,
-style, refactor, test, chore, ci, build, revert`).
-- **ESLint** (flat config) enforces:
-  - No single-letter / meaningless variable names (`id-length` + banned names
-    `data`, `temp`, `arr`, `obj`, `str`, `result`, `myVar`, `_`-prefixed
-    single letters).
-  - Import ordering (`import/order`: grouped, alphabetized, blank lines).
-  - JSDoc on every exported symbol + inline comments before non-trivial calls
-    (custom `require-call-comment` rule in `scripts/eslint-rules/`).
-  - `no-explicit-any`, `no-console` (warn/error only), `eqeqeq`, etc.
-  - Prettier integration.
-- **Prettier** — 100 print width, single quotes, LF, trailing commas.
-- **lint-staged** — Prettier + ESLint `--fix` on staged `src/**` files.
+### 1.2 Technical Blueprint Rewritten
 
-## 3. Check scripts (done — `scripts/`)
+Transformed `docs/MangaVerse_Technical_Blueprint.md` into low-level implementation spec:
 
-- `check-pnpm.mjs` — ensure pnpm is installed.
-- `detect-no-verify.mjs` — refuse `--no-verify` bypass patterns.
-- `pre-commit-format.mjs` — Prettier-format staged files before commit.
-- `check-test-stubs.mjs` — every domain folder under `lib/`, `services/`,
-  `utils/`, `types/`, `hooks/`, `store/` must have a test stub, and every
-  exported symbol must be referenced in a `describe`/`it`/`test` string.
-- `check-single-letter-vars.mjs`, `check-import-order.mjs`, `check-comments.mjs`
-  — focused ESLint-driven checks.
-- `run-quality-gate.mjs` — orchestrates detect-no-verify → lint → test-stubs →
-  types → tests.
-- `show-commands.mjs` — lists available commands.
-- `eslint-rules/require-call-comment.mjs` — custom inline-comment rule.
+- Full system context diagram
+- Detailed data models (User, Manga, Character entities)
+- PostgreSQL schema definitions
+- Complete API specification with:
+  - Request/response schemas (JSON)
+  - Error codes (400, 401, 409)
+  - Query parameter documentation
+- Security architecture:
+  - JWT RS256 flow
+  - bcrypt cost factor 12
+  - Zod validation schemas
+  - Authorization matrix
+- Deployment architecture (K8s manifests)
+- Environment variables specification
+- Monitoring & observability (metrics, tracing)
 
-## 4. Source seed (done)
+### 1.3 Tech Stack Roadmap Updated
 
-```
-src/
-  lib/utils.ts        add(), formatTitle()        + lib/utils.test.ts
-  services/manga.ts   MangaSummary, fetchMangaSummary()  + services/manga.test.ts
-  api/server.ts       createApp() (Express)        + api/server.test.ts
-  web/App.tsx, web/main.tsx   React entry
-  blockchain/index.ts getTargetChain()             + blockchain/index.test.ts
-```
+Rewrote `docs/MangaVerse_TechStack_Roadmap.md`:
 
-Root: `vite.config.ts`, `vitest.config.ts`, `index.html`, `tsconfig.json`,
-`tsconfig.base.json`.
+- Pinned versions for all dependencies
+- Setup commands per phase
+- Development workflow reference
+- Decision log
 
-## 5. CI (done)
+### 1.4 Project Briefing Enhanced
 
-- `.github/workflows/ci.yml` — install, build, lint, type-check, test-stub
-  coverage, tests with coverage, security audit.
+Added to `docs/MangaVerse_Project_Briefing.md`:
 
-## 6. Scaffold status — COMPLETE & VERIFIED
+- Implementation decisions table
+- Architecture decisions documented
+- Data model decisions
+- Security decisions
+- File storage decisions
+- API design decisions
+- Development workflow (Git strategy, CI/CD, code review checklist)
+- Deployment specification (environments, IaC, secrets)
+- Success metrics & KPIs (technical + business)
 
-All tooling, seed source, and checks are in place and the following pass
-cleanly on the seed files:
+### 1.5 Dynamics & Dynamism Added
+
+Added comprehensive dynamics section to Technical Blueprint covering:
+
+- **Dynamic State Management** — Zustand stores, real-time subscriptions, optimistic UI
+- **Dynamic UI/UX Patterns** — Framer Motion, gesture recognition, adaptive layouts
+- **Dynamic Data Flow** — Collaboration, infinite scroll, live presence
+- **Dynamic Performance** — Adaptive quality, resource loading, memory management
+- **Dynamic API Interactions** — Feature flags, optimistic updates, retry logic
+- **Dynamic Analytics** — Adaptive event sampling, funnel tracking, telemetry
+
+### 1.6 3D Camera Pan System Added
+
+Added comprehensive camera pan functionality to Animation Engine:
+
+- **Camera Controls Architecture** — Three.js + OrbitControls integration
+- **Camera State Model** — Position, target, FOV, zoom with constraints
+- **Animated Camera Movement** — Keyframe-based camera paths
+- **Interactive Playback** — User-controlled pan during animation
+- **Animation-Guided Camera** — Auto-generated camera paths from scene data
+- **Performance Optimization** — Dynamic quality based on device capabilities
+- **API Extensions** — Camera path configuration in animation generation requests
+
+### 1.7 Camera Pan for Static Manga Reading Added
+
+Extended camera pan functionality to static manga reading:
+
+- **Static Camera State** — 2D position and zoom for static pages
+- **Page Bounds Constraints** — Prevent panning outside page boundaries
+- **Camera Controls Component** — Reset (R) and Fit (F) buttons
+- **Mouse Drag Panning** — Click and drag to pan around large pages
+- **Zoom Integration** — Camera zoom works with pan functionality
+- **Keyboard Shortcuts** — R for reset, F for fit to screen
+
+## 1.7 RevenueCat SDK & Mobile Integration
+
+Crawled RevenueCat DevPost resources + SDK docs (quickstart, RN/Expo/Android install,
+entitlements, offerings, paywalls, customer-info, web billing, configuring SDK, AI toolkit,
+displaying paywalls). Created new spec and edited existing docs:
+
+- **New `docs/MangaVerse_Mobile_RevenueCat_Spec.md`** — exhaustive: dashboard config (project/apps/
+  products/entitlements/offerings/paywalls), RN+Expo install + Android/iOS requirements,
+  SDK init per Platform.OS, user identification, paywall presentation (present/presentPaywallIfNeeded/
+  embedded + listeners + custom variables + exit offers), subscription gating (getCustomerInfo,
+  update listener, offline entitlements, refunds), REST API + webhooks for consumable credits,
+  RevenueCat Web Billing (Stripe) paths, monetization model mapping, AI Toolkit (MCP), EAS build
+  pipeline, testing (Test Store/sandbox), security/compliance.
+- **Technical Blueprint** — added §16 Subscriptions/Billing & RevenueCat (data model, API gating
+  middleware, mobile client architecture, credit flow) and §17 Testing Strategy (renumbered).
+- **Tech Stack Roadmap** — added §1.5 Mobile & Desktop, §1.6 Payments/Monetization (RevenueCat)
+  tables; Phase 5 Week 18 now covers Expo + RevenueCat.
+- **Project Briefing** — expanded §4 Business Model with RevenueCat architecture; added §4.1 Mobile
+  & Desktop Clients.
+- **ROADMAP.md** — linked new spec in Overview; added Level 8 (Mobile & RevenueCat) with entry/exit
+  criteria; updated dependency graph + testing matrix.
+
+---
+
+## 2. Scaffold Status — VERIFIED
+
+All tooling, seed source, and checks pass:
 
 - `pnpm lint` (ESLint, max-warnings 0) — passes
 - `pnpm exec tsc --noEmit` (type-check) — passes
-- `pnpm build` (Vite production build) — passes; logo bundled, favicon emitted
+- `pnpm build` (Vite production build) — passes
 - `pnpm check-test-stubs` — 0 missing tests
 - `pnpm test:ci` — 6 tests across 4 files pass
 
-Fixes applied during verification:
+---
 
-- Native build scripts (esbuild, unrs-resolver) approved via
-  `pnpm.onlyBuiltDependencies` in `package.json`.
-- `src/api/server.ts`: `process.env.NODE_ENV` → `process.env['NODE_ENV']`
-  (strict `noPropertyAccessFromIndexSignature` rule).
-- `eslint.config.js`: removed `vite.config.ts` / `vitest.config.ts` from
-  `allowDefaultProject`; forced `espree` as the parser for `.js/.mjs` script
-  files (added `espree` devDependency) to fix a TS-parser parse error.
-- `scripts/check-test-stubs.mjs`: fixed a comment containing `*/` (inside
-  `apps/*/src`) that prematurely closed the block comment, plus a
-  `no-useless-escape` in a regex.
-- `src/services/manga.ts`: renamed the banned `data` variable to
-  `mangaSummary`.
+## 3. Next Actions (Implementation)
 
-## 7. Logo & favicon (done)
+1. **Level 1: Core Infrastructure**
+   - Create Express server in `apps/api/src/server.ts`
+   - Implement Prisma schema for User entity
+   - Add JWT auth endpoints
 
-- Renamed dropped asset `src/MangaVerse.png` → `src/web/assets/logo.png`
-  (optimized to 512×512 / ~236 KB).
-- Generated `public/favicon.ico` (multi-size 64/48/32/16) from the logo via
-  ImageMagick.
-- `index.html` references `/favicon.ico` (plus `apple-touch-icon` and a
-  `#6C5CE7` theme-color).
-- `src/web/App.tsx` renders the logo in the brand header via
-  `import logoUrl from './assets/logo.png'`.
+2. **Level 2: Web Client Shell**
+   - Create React app in `apps/web/`
+   - Configure TailwindCSS + dark mode
+   - Set up Zustand stores
 
-## 8. Next steps (feature work)
+3. **Level 3: Manga Core**
+   - Implement Manga CRUD API
+   - Build reader component
+   - Add pagination/search
 
-1. Implement the API foundation (Express + Prisma + JWT/OAuth) in `src/api`.
-2. Build out the web client shell (Vite + React) in `src/web`.
-3. Add shared domain types/utilities in `src/lib`.
-4. Stand up the blockchain workspace (Hardhat/Foundry) under `src/blockchain`.
-5. Keep `docs/` in sync with architecture decisions.
+---
+
+## 4. Git Status
+
+Last commit: 436090d (docs: transform all docs to low-level implementation specs)
+
+---
+
+## 5. Files Modified
+
+| File                                        | Change                                          |
+| ------------------------------------------- | ----------------------------------------------- |
+| `docs/MangaVerse_Technical_Blueprint.md`    | Added §16 RevenueCat + §17 Testing              |
+| `docs/MangaVerse_TechStack_Roadmap.md`      | Added mobile + payments tables; Phase 5 updated |
+| `docs/MangaVerse_Project_Briefing.md`       | Expanded business model + mobile section        |
+| `docs/ROADMAP.md`                           | Added Level 8 Mobile & RevenueCat               |
+| `docs/MangaVerse_Mobile_RevenueCat_Spec.md` | New file (exhaustive RevenueCat + mobile)       |
+| `tmp/PROGRESS.md`                           | Updated                                         |
+
+---
+
+_Progress tracked in tmp/PROGRESS.md (git-ignored except this file)_
