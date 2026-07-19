@@ -9,6 +9,9 @@ export default {
       colors: {
         primary: '#6C5CE7',
         secondary: '#00CEC9',
+        cyan: {
+          500: '#06b6d4',
+        },
         background: '#0D0D1A',
         surface: '#151528',
       },

@@ -16,8 +16,7 @@ import {
   Users,
   Play,
   ChevronDown,
-  Image as ImageIcon,
-  Layers,
+  UserPlus,
 } from 'lucide-react'
 import logoUrl from './assets/logo.png'
 import cyberRonin from './assets/cyber-ronin.png'
@@ -28,7 +27,7 @@ import audition from './assets/audition.png'
 import './index.css'
 
 /* ------------------------------------------------------------------ */
-/* Waitlist (front-end only — no backend, no real submission)         */
+/* Waitlist (front-end only — no backend, no real submission)        */
 /* ------------------------------------------------------------------ */
 const useWaitlistStore = () => {
   const [email, setEmail] = useState('')
@@ -54,97 +53,165 @@ const useWaitlistStore = () => {
 function AmbientScene() {
   return (
     <>
-      <ambientLight intensity={0.4} />
-      <pointLight position={[10, 10, 10]} intensity={0.6} color="#6C5CE7" />
-      <pointLight position={[-10, -10, -10]} intensity={0.3} color="#00CEC9" />
-      <Stars radius={120} depth={50} count={1500} factor={4} fade speed={0.6} />
-      <Sparkles count={60} scale={12} size={2} speed={0.3} opacity={0.4} color="#6C5CE7" />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={0.5} color="#6C5CE7" />
+      <pointLight position={[-10, -10, -10]} intensity={0.2} color="#00CEC9" />
+      <Stars
+        radius={120}
+        depth={50}
+        count={1000}
+        factor={3}
+        saturation={0.4}
+        fade
+        speed={0.4}
+      />
+      <Sparkles count={40} scale={15} size={1.5} speed={0.2} opacity={0.3} color="#6C5CE7" />
     </>
   )
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero — manga-first: a static panel with subtle camera-pan + the    */
-/* "Animate This" concept pill (teaser, not functional)               */
+/* Floating manga panel mesh for parallax effect                      */
+/* ------------------------------------------------------------------ */
+function FloatingPanel() {
+  const ref = useRef<THREE.Mesh>(null)
+  useFrame(({ clock }) => {
+    if (ref.current) {
+      ref.current.rotation.y = Math.sin(clock.getElapsedTime() * 0.1) * 0.03
+      ref.current.position.y = Math.sin(clock.getElapsedTime() * 0.5) * 0.3
+    }
+  })
+  return (
+    <mesh ref={ref} position={[-6, -2, -5]} rotation={[0.3, 0.5, 0]}>
+      <boxGeometry args={[1.2, 1.8, 0.05]} />
+      <meshStandardMaterial
+        color="rgba(108, 92, 231, 0.15)"
+        emissive="rgba(108, 92, 231, 0.3)"
+        transparent
+        opacity={0.4}
+        wireframe
+      />
+    </mesh>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Floating manga panel mesh for parallax effect (2)                 */
+/* ------------------------------------------------------------------ */
+function FloatingPanel2() {
+  const ref = useRef<THREE.Mesh>(null)
+  useFrame(({ clock }) => {
+    if (ref.current) {
+      ref.current.rotation.y = Math.sin(clock.getElapsedTime() * 0.12) * 0.03
+      ref.current.position.y = Math.sin(clock.getElapsedTime() * 0.5) * 0.3
+    }
+  })
+  return (
+    <mesh ref={ref} position={[5, 1, -6]} rotation={[-0.2, -0.4, 0]}>
+      <boxGeometry args={[1, 1.4, 0.05]} />
+      <meshStandardMaterial
+        color="rgba(0, 206, 201, 0.15)"
+        emissive="rgba(0, 206, 201, 0.3)"
+        transparent
+        opacity={0.3}
+        wireframe
+      />
+    </mesh>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero — larger logo, better headline, "Join Auditions" CTA          */
 /* ------------------------------------------------------------------ */
 function Hero() {
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
+  const { email, setEmail, submitted, error, submit } = useWaitlistStore()
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-4">
-      {/* ambient canvas */}
-      <div className="absolute inset-0 opacity-60">
-        <Canvas camera={{ position: [0, 0, 6], fov: 50 }}>
+      {/* animated 3D background */}
+      <div className="absolute inset-0">
+        <Canvas camera={{ position: [0, 0, 8], fov: 55 }}>
           <AmbientScene />
+          <FloatingPanel />
+          <FloatingPanel2 />
         </Canvas>
       </div>
 
-      {/* brand mark */}
+      {/* logo - larger */}
       <motion.img
         src={logoUrl}
         alt="MangaVerse logo"
-        className="logo-glow w-20 h-20 md:w-24 md:h-24 mb-6 rounded-2xl"
+        className="w-28 h-28 md:w-36 md:h-36 mb-6 rounded-2xl logo-glow"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
       />
 
       <motion.span
-        className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-primary/20 border border-primary/30 text-primary mb-5"
+        className="text-xs uppercase tracking-wider text-gray-400 mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        Coming Soon
+        Where Manga Comes Alive
       </motion.span>
 
       <motion.h1
-        className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold mb-4"
+        className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-center"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        Manga<span className="text-brand-gradient">Verse</span>
+        The Future of Interactive Manga
       </motion.h1>
 
       <motion.p
-        className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto mb-10 text-center"
+        className="text-lg text-gray-300 max-w-2xl mx-auto mb-10 text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        Where Manga Meets Tomorrow — create manga with AI, then bring every page to life.
+        Discover worlds powered by AI, blockchain, and imagination.
       </motion.p>
 
-      {/* Manga panel hero with camera-pan + Animate This teaser */}
-      <motion.div
-        className="relative w-full max-w-md mb-12"
-        style={{ opacity }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-      >
-        <div className="manga-panel aspect-[3/4] camera-pan">
-          <div className="halftone" />
-          <div className="absolute inset-0 flex flex-col justify-between p-5">
-            <div className="flex items-start justify-between">
-              <div className="speech-bubble text-sm">New chapter drops soon!</div>
-              <span className="px-2 py-1 rounded text-xs font-semibold bg-primary/30 text-primary">
-                Shonen
-              </span>
-            </div>
-            <div className="flex items-end justify-between">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-secondary opacity-70 blur-[1px]" />
-              <span className="animate-pill">
-                <Play size={14} /> Animate This
-              </span>
-            </div>
+      {/* Join Auditions button - glowing cyan */}
+      {!submitted && (
+        <motion.form onSubmit={submit} className="w-full max-w-md mb-8">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              className="flex-1 px-4 py-3 rounded-xl bg-surface border border-white/10 focus:border-secondary/50 focus:outline-none placeholder:text-gray-500 text-white"
+            />
+            <motion.button
+              type="submit"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-secondary to-cyan-500 font-semibold flex items-center justify-center gap-2 electric-effect ripple shadow-[0_0_20px_rgba(0,206,201,0.5)]"
+            >
+              Join Auditions <ArrowRight size={18} />
+            </motion.button>
           </div>
-        </div>
-      </motion.div>
+          {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+        </form>
+      )}
 
-      <WaitlistForm />
+      {submitted && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="glass-card rounded-2xl p-8 text-center"
+        >
+          <SparklesIcon className="w-10 h-10 text-secondary mx-auto mb-3" />
+          <h3 className="text-2xl font-heading mb-1">You're on the list!</h3>
+          <p className="text-gray-400">We'll notify you when we launch.</p>
+        </motion.div>
+      )}
 
       <motion.div
         className="absolute bottom-6 left-1/2 -translate-x-1/2 text-gray-400"
@@ -157,55 +224,8 @@ function Hero() {
   )
 }
 
-function WaitlistForm() {
-  const { email, setEmail, submitted, error, submit } = useWaitlistStore()
-
-  if (submitted) {
-    return (
-      <div className="glass-card rounded-2xl p-8 text-center max-w-md mx-auto">
-        <SparklesIcon className="w-10 h-10 text-secondary mx-auto mb-3" />
-        <h3 className="text-2xl font-heading mb-1">You're on the list!</h3>
-        <p className="text-gray-400">We'll notify you the moment we launch.</p>
-      </div>
-    )
-  }
-
-  return (
-    <form
-      onSubmit={submit}
-      className="glass-card rounded-2xl p-6 md:p-8 w-full max-w-md mx-auto"
-    >
-      <h3 className="text-xl font-heading mb-1">Join the Waitlist</h3>
-      <p className="text-gray-400 mb-5 text-sm">Early access + exclusive creator perks.</p>
-      <div className="flex flex-col sm:flex-row gap-3">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="you@email.com"
-          className="flex-1 px-4 py-3 rounded-xl bg-surface border border-white/10
-                   focus:border-primary/50 focus:outline-none placeholder:text-gray-500"
-        />
-        <motion.button
-          type="submit"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-secondary
-                   font-medium flex items-center justify-center gap-2 electric-effect ripple"
-        >
-          Join <ArrowRight size={18} />
-        </motion.button>
-      </div>
-      {error && <p className="text-red-400 text-sm mt-3">{error}</p>}
-      <p className="text-gray-500 text-xs mt-4">
-        Be the first to create, animate, and own manga on MangaVerse.
-      </p>
-    </form>
-  )
-}
-
 /* ------------------------------------------------------------------ */
-/* Two journeys — Artists & Readers (mapped to the product vision)    */
+/* Two journeys — Artists & Readers                                   */
 /* ------------------------------------------------------------------ */
 function Journeys() {
   const items = [
@@ -219,7 +239,7 @@ function Journeys() {
     {
       icon: <BookOpen size={22} />,
       title: 'For Readers',
-      body: 'Read manga your way, then tap “Animate This” to watch a page come alive — with sound, camera-pan, and immersive storytelling.',
+      body: 'Read manga your way, then tap "Animate This" to watch a page come alive — with sound, camera-pan, and immersive storytelling.',
       points: ['One-click animation', 'Camera-pan playback', 'Immersive reading'],
       tint: 'from-secondary/30',
     },
@@ -238,6 +258,7 @@ function Journeys() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
+              whileHover={{ y: -5 }}
             >
               <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-primary mb-4">
                 {it.icon}
@@ -260,40 +281,16 @@ function Journeys() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Features — mapped to the low-level docs (Studio / Reader / Web3)   */
+/* Features — mapped to low-level docs                               */
 /* ------------------------------------------------------------------ */
 function Features() {
   const features = [
-    {
-      icon: <Wand2 size={24} />,
-      title: 'AI Character Generation',
-      description: 'Text-to-character with style presets and consistent identity via LoRA fine-tuning.',
-    },
-    {
-      icon: <Layers size={24} />,
-      title: 'Manga Studio',
-      description: 'Drag-and-drop scene builder, templates, AI backgrounds, and real-time collaboration.',
-    },
-    {
-      icon: <Play size={24} />,
-      title: 'One-Click Animation',
-      description: 'Turn static pages into motion with the LTX Video Model, plus sound and camera-pan.',
-    },
-    {
-      icon: <Wallet size={24} />,
-      title: 'Web3 Ownership',
-      description: 'NFT-based authorship records and smart-contract perpetual royalties for creators.',
-    },
-    {
-      icon: <ImageIcon size={24} />,
-      title: 'Camera-Pan Reading',
-      description: 'Pan and frame each page like a scene — your perspective, your viewing angle.',
-    },
-    {
-      icon: <Users size={24} />,
-      title: 'DAO Governance',
-      description: 'Community-driven decisions powered by the $MANGA token and stakeholder voting.',
-    },
+    { icon: <Wand2 size={24} />, title: 'AI Character Generation', desc: 'Text-to-character with style presets and consistent identity via LoRA fine-tuning.' },
+    { icon: <Layers size={24} />, title: 'Manga Studio', desc: 'Drag-and-drop scene builder, templates, AI backgrounds, and real-time collaboration.' },
+    { icon: <Play size={24} />, title: 'One-Click Animation', desc: 'Turn static pages into motion with the LTX Video Model, plus sound and camera-pan.' },
+    { icon: <Wallet size={24} />, title: 'Web3 Ownership', desc: 'NFT-based authorship records and smart-contract perpetual royalties.' },
+    { icon: <Cpu size={24} />, title: 'Camera-Pan Reading', desc: 'Pan and frame each page like a scene — your perspective, your viewing angle.' },
+    { icon: <Users size={24} />, title: 'DAO Governance', desc: 'Community-driven decisions powered by the $MANGA token.' },
   ]
 
   return (
@@ -315,7 +312,7 @@ function Features() {
                 {f.icon}
               </div>
               <h3 className="text-xl font-heading mb-2">{f.title}</h3>
-              <p className="text-gray-400 text-sm">{f.description}</p>
+              <p className="text-gray-400 text-sm">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -325,7 +322,7 @@ function Features() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Sample Manga — real AI-generated concept art (presentational only) */
+/* Sample Manga — real AI-generated concept art                      */
 /* ------------------------------------------------------------------ */
 function SampleManga() {
   const samples = [
@@ -333,7 +330,7 @@ function SampleManga() {
       image: cyberRonin,
       title: 'Cyber Ronin',
       style: 'Shonen',
-      description: 'A wandering warrior in a neon-drenched cyberpunk future. Last of the Ronin code.',
+      description: 'A wandering warrior in a neon-drenched cyberpunk future.',
       tags: ['Action', 'Sci-Fi'],
       color: '#6C5CE7',
     },
@@ -341,7 +338,7 @@ function SampleManga() {
       image: sakuraWars,
       title: 'Sakura Wars',
       style: 'Shoujo',
-      description: 'High school girls discover magical powers to save their town from supernatural threats.',
+      description: 'High school girls discover magical powers to save their town.',
       tags: ['Magical Girl', 'Romance'],
       color: '#00CEC9',
     },
@@ -349,7 +346,7 @@ function SampleManga() {
       image: voidEater,
       title: 'Void Eater',
       style: 'Seinen',
-      description: 'Dark fantasy epic where humanity fights ancient cosmic horrors. Not for the faint-hearted.',
+      description: 'Dark fantasy epic where humanity fights cosmic horrors.',
       tags: ['Horror', 'Fantasy'],
       color: '#9B59B6',
     },
@@ -357,7 +354,7 @@ function SampleManga() {
       image: salarymanX,
       title: 'Salaryman X',
       style: 'Comedy',
-      description: 'An ordinary salaryman gets transported to a fantasy world. Hilarity ensues.',
+      description: 'An ordinary salaryman gets transported to a fantasy world.',
       tags: ['Isekai', 'Comedy'],
       color: '#3498DB',
     },
@@ -365,7 +362,7 @@ function SampleManga() {
       image: audition,
       title: 'Audition',
       style: 'Josei',
-      description: 'Aspiring idols navigate rivalry, friendship, and the spotlight of stage life.',
+      description: 'Aspiring idols navigate rivalry and the spotlight.',
       tags: ['Drama', 'Music'],
       color: '#FF69B4',
     },
@@ -391,12 +388,7 @@ function SampleManga() {
             >
               <div className="manga-panel rounded-t-2xl !border-0 !rounded-b-none aspect-[3/4]">
                 <div className="halftone" />
-                <img
-                  src={m.image}
-                  alt={m.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
+                <img src={m.image} alt={m.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                 <span
                   className="absolute top-3 right-3 px-2 py-1 rounded text-xs font-semibold"
                   style={{ backgroundColor: `${m.color}33`, color: m.color }}
@@ -422,6 +414,10 @@ function SampleManga() {
     </section>
   )
 }
+
+/* ------------------------------------------------------------------ */
+/* Section header                                                     */
+/* ------------------------------------------------------------------ */
 function SectionTitle({ title, subtitle }: { title: string; subtitle: string }) {
   return (
     <motion.div
@@ -452,11 +448,11 @@ function Footer() {
     <footer className="relative py-12 px-4 border-t border-white/10">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <img src={logoUrl} alt="MangaVerse" className="logo-glow w-10 h-10 rounded-lg mb-2" />
+          <img src={logoUrl} alt="MangaVerse" className="w-8 h-8 rounded-lg mb-2 logo-glow" />
           <p className="font-heading text-lg">
             Manga<span className="text-brand-gradient">Verse</span>
           </p>
-          <p className="text-gray-500 text-sm">Where Manga Meets Tomorrow</p>
+          <p className="text-gray-500 text-sm">Where Manga Comes Alive</p>
         </div>
 
         <div className="flex items-center gap-4">
@@ -465,7 +461,7 @@ function Footer() {
               key={i}
               href={s.href}
               className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400
-                       hover:text-primary hover:bg-primary/20 transition-colors"
+                       hover:text-secondary hover:bg-secondary/20 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
