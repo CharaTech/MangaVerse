@@ -86,10 +86,74 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 4px rgba(108, 92, 231, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-secondary);
+  box-shadow: 0 0 12px rgba(0, 206, 201, 0.7), 0 0 20px rgba(108, 92, 231, 0.6);
+}
+
+/* Scrollbar sparkle effect when scrolling */
+@keyframes scrollbar-sparkle {
+  0% { box-shadow: 0 0 6px rgba(108, 92, 231, 0.4), 0 0 12px rgba(108, 92, 231, 0.2); }
+  30% { box-shadow: 0 0 14px rgba(108, 92, 231, 0.6), 0 0 28px rgba(108, 92, 231, 0.4), 0 0 42px rgba(160, 70, 230, 0.3), 0 0 64px rgba(0, 206, 201, 0.2); }
+  50% { box-shadow: 0 0 18px rgba(170, 90, 230, 0.7), 0 0 36px rgba(170, 90, 230, 0.5), 0 0 54px rgba(220, 20, 60, 0.4), 0 0 80px rgba(108, 92, 231, 0.3); }
+  70% { box-shadow: 0 0 16px rgba(108, 92, 231, 0.6), 0 0 32px rgba(108, 92, 231, 0.4), 0 0 48px rgba(160, 70, 230, 0.3), 0 0 72px rgba(0, 206, 201, 0.25); }
+  100% { box-shadow: 0 0 6px rgba(108, 92, 231, 0.4), 0 0 12px rgba(108, 92, 231, 0.2); }
+}
+
+html.scrolling::-webkit-scrollbar-thumb {
+  animation: scrollbar-sparkle 2s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(108, 92, 231, 0.5), 0 0 16px rgba(0, 206, 201, 0.6);
+  border-radius: 4px;
+}
+
+/* Smoke trail effect during scroll */
+body.scrolling::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 998;
+  opacity: 0.2;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(170, 90, 230, 0.2) 0%,
+    rgba(108, 92, 231, 0.1) 40%,
+    transparent 70%
+  );
+  filter: blur(10px) saturate(1.5);
+  animation: smoke-drift 0.8s ease-out forwards;
+}
+
+@keyframes smoke-drift {
+  from { opacity: 0.2; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+/* Lightning streak effect */
+body.scrolling .scroll-electric::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(180deg, transparent, #e9c8ff 30%, #ffffff 50%, #c070f0 70%, transparent);
+  box-shadow: 0 0 8px rgba(200, 120, 255, 0.9), 0 0 16px rgba(150, 60, 220, 0.7);
+  filter: drop-shadow(0 0 4px rgba(210, 130, 255, 0.9));
+  border-radius: 1px;
+  animation: lightning-streak 0.8s ease-out forwards;
+  transform-origin: top center;
+}
+
+@keyframes lightning-streak {
+  from { opacity: 0; transform: scaleY(0.2) rotate(10deg); }
+  30% { opacity: 1; transform: scaleY(1) rotate(-5deg); }
+  70% { opacity: 0.8; transform: scaleY(0.9) rotate(2deg); }
+  100% { opacity: 0; transform: scaleY(1) rotate(0deg); }
 }
 
 /* Glow effects */
